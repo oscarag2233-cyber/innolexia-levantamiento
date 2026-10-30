@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Levantamiento IA – Contratación Estatal</title>
+<title>Levantamiento IA – Cristian Camilo Niño Fonseca</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
@@ -116,6 +116,7 @@ input:focus,textarea:focus,button:focus-visible,.chip input:focus-visible+span{o
 .perfil{display:inline-block;font-family:var(--display);font-weight:700;font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:6px;margin-right:8px;vertical-align:middle}
 .perfil.C{background:var(--ice);color:var(--navy)}
 .perfil.P{background:var(--cyan-soft);color:#0B5A6E}
+.perfil.T{background:var(--cyan-soft);color:var(--navy)}
 .chip.rk span::before{display:none}
 .chip.rk .pos{display:inline-grid;place-items:center;min-width:22px;height:22px;border-radius:50%;background:var(--ice);color:var(--navy);font-family:var(--display);font-size:.75rem;margin-right:2px}
 .chip.rk.on span{background:var(--navy);border-color:var(--navy);color:#fff}
@@ -175,7 +176,7 @@ footer b{color:var(--navy);font-family:var(--display)}
 <main class="wrap">
   <section class="intro">
     <div>
-      <p>Este instrumento recoge la información necesaria para diagnosticar el estado actual de la firma y diseñar la implementación de la herramienta de inteligencia artificial que mejor se ajuste a su práctica. Se desarrolla en dos fases de 90 minutos, previstas para dos encuentros de trabajo, con diez módulos en total; las preguntas se adaptan al perfil de la firma (asesoría a entidades estatales, a proponentes o proveedores, o a ambos) según la respuesta a la pregunta D1.1; cada módulo indica la finalidad de la información que solicita y cierra con un espacio de observaciones para registrar lo que no haya quedado cubierto. El levantamiento se rige por el ordenamiento jurídico colombiano, por lo que las referencias normativas corresponden a normas de la República de Colombia y su vigencia se verifica en fuentes oficiales. La mayoría de las preguntas se responden con un clic; las de texto libre se reservan para lo que solo usted puede describir.</p>
+      <p>Este instrumento recoge la información necesaria para diagnosticar el estado actual de la firma y diseñar la implementación de la herramienta de inteligencia artificial que mejor se ajuste a su práctica. Se desarrolla en dos fases de 90 minutos, previstas para dos encuentros de trabajo, con diez módulos en total; __INTRO_BRANCH__ cada módulo indica la finalidad de la información que solicita y cierra con un espacio de observaciones para registrar lo que no haya quedado cubierto. El levantamiento se rige por el ordenamiento jurídico colombiano, por lo que las referencias normativas corresponden a normas de la República de Colombia y su vigencia se verifica en fuentes oficiales. La mayoría de las preguntas se responden con un clic; las de texto libre se reservan para lo que solo usted puede describir.</p>
       <p>Sus respuestas se guardan automáticamente en este navegador mientras avanza y, al finalizar, se envían a la matriz de diagnóstico. Las preguntas marcadas con <span class="req">*</span> son obligatorias. La información suministrada se trata con carácter confidencial y solo para los fines de la consultoría.</p>
     </div>
     <div class="kpis" style="grid-template-columns:repeat(3,1fr)">
@@ -218,6 +219,7 @@ footer b{color:var(--navy);font-family:var(--display)}
    ===================================================================== */
 const ENDPOINT = "https://script.google.com/macros/s/AKfycbyUZ6y_5jSnyMEUlKZu4lO0f8YWB--q7JXntuWa0boiu2LRDeL6K8f7PV77aDz6PACHIg/exec";
 const CONFIG = {
+  sheetId:   "",      // ID de la hoja de Google destino (vacío = hoja vinculada al script)
   firma:     "Cristian Camilo Niño Fonseca",      // Nombre de la firma de abogados (ej. "Pérez & Asociados S.A.S.")
   abogado:   "Abogado: Cristian Camilo Niño Fonseca",    // Abogado(a) o socio(a) que diligencia (ej. "Dra. Ana Pérez – Socia directora")
   encuentro: "Encuentro 1 · Martes 3 de noviembre de 2026 · 2:00 p. m."   // Fecha o referencia del encuentro (ej. "Encuentro 1 · 4 de noviembre de 2026")
@@ -226,6 +228,7 @@ const MODULOS = [{"code": "M0", "title": "Identificación", "icon": "id", "objec
 const ICONS = {"id": "<circle cx='12' cy='8' r='4'/><path d='M4 21v-2a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v2'/>", "brief": "<rect x='3' y='7' width='18' height='13' rx='2'/><path d='M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12h18'/>", "flow": "<rect x='3' y='3' width='6' height='6' rx='1'/><rect x='15' y='15' width='6' height='6' rx='1'/><path d='M9 6h5a2 2 0 0 1 2 2v7'/>", "book": "<path d='M4 4h7a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H4zM20 4h-6a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h7z'/>", "shield": "<path d='M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z'/><path d='M9 12l2 2 4-4'/>", "server": "<rect x='3' y='4' width='18' height='7' rx='2'/><rect x='3' y='13' width='18' height='7' rx='2'/><path d='M7 7.5h.01M7 16.5h.01'/>", "spark": "<path d='M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z'/><path d='M19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z'/>", "gavel": "<path d='M14 4l6 6M4 20l7-7M12 6l6 6M9 9l6 6'/><path d='M3 21h8'/>", "scale": "<path d='M12 3v18M5 7h14M3 21h18'/><path d='M5 7l-3 7a3 3 0 0 0 6 0zM19 7l-3 7a3 3 0 0 0 6 0z'/>", "target": "<circle cx='12' cy='12' r='9'/><circle cx='12' cy='12' r='5'/><circle cx='12' cy='12' r='1'/>"};
 const PHASES = {"1": {"name": "Fase 1 · Encuentro 1", "desc": "Contexto de la firma, procesos, fuentes, información y tecnología", "min": 90}, "2": {"name": "Fase 2 · Encuentro 2", "desc": "Experiencia en IA, gobernanza, fuentes jurídicas y expectativas", "min": 90}};
 const KEY = "innolexia_levantamiento_v5";
+const BRANCH_COLS = [{"id": "__PROFILE__", "label": "Perfil (según D1.1)"}];
 let idx = 0, data = {}, view = "module";
 try { data = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) { data = {}; }
 const $ = s => document.querySelector(s);
@@ -251,8 +254,14 @@ function profiles(){
   return {C:true,P:true};
 }
 function profileLabel(){const p=profiles();return p.C&&p.P?"Comprador y Proveedor":p.C?"Comprador":"Proveedor";}
+function cond(c){ let v=data[c.q]; if(c.row) v=(v&&typeof v==="object")?v[c.row]:undefined;
+  const arr=Array.isArray(v)?v:(v===undefined||v===""?[]:[v]);
+  if(c.any) return c.any.some(o=>arr.includes(o));
+  if(c.notIn) return !(arr.length && arr.every(o=>c.notIn.includes(o)));
+  return true; }
 function visible(q){
   if(q.profile && !profiles()[q.profile]) return false;
+  if(q.when){ const ws=Array.isArray(q.when)?q.when:[q.when]; if(!ws.every(cond)) return false; }
   if(q.showIf){const s=q.showIf; let v=data[s.q];
     if(s.row){v=(v&&typeof v==="object")?v[s.row]:undefined;}
     if(v!==undefined && v!=="" && s.notIn && s.notIn.includes(v)) return false;}
@@ -301,7 +310,7 @@ function renderNav(){
   $("#av-count").textContent=st.n+" de "+st.t+" respuestas de la fase";
   $("#av-pct").textContent=st.pct+" %";
   $("#avance").setAttribute("aria-valuenow",st.pct);
-  $("#counter").textContent=view==="end"?"":`Módulo ${modsOf(ph).findIndex(([,i])=>i===idx)+1} de ${modsOf(ph).length} de la ${PHASES[ph].name.split(" · ")[0]} · Perfil: ${profileLabel()}`;
+  $("#counter").textContent=view==="end"?"":`Módulo ${modsOf(ph).findIndex(([,i])=>i===idx)+1} de ${modsOf(ph).length} de la ${PHASES[ph].name.split(" · ")[0]} ${BRANCH_COLS.some(c=>c.id==='__PROFILE__')?' · Perfil: '+profileLabel():''}`;
   renderPhases(); updateKpis();
 }
 
@@ -311,7 +320,7 @@ function otroHtml(q){
 }
 function fieldHtml(q){
   const v=data[q.id]; const req=q.req?' <span class="req" title="Obligatoria">*</span>':"";
-  const tag=q.profile?`<span class="perfil ${q.profile}">${q.profile==="C"?"Perfil Comprador":"Perfil Proveedor"}</span>`:"";
+  const tag=q.profile?`<span class="perfil ${q.profile}">${q.profile==="C"?"Perfil Comprador":"Perfil Proveedor"}</span>`:(q.tag?`<span class="perfil T">${esc(q.tag)}</span>`:"");
   let h=`<div class="field" data-id="${q.id}"><span class="main"><span class="qid">${esc(q.id.replace(".OBS",""))}${q.id.endsWith(".OBS")?" · OBS":""}</span>${tag}${esc(q.profile?q.label.replace(/^(Perfil Comprador|Perfil Proponente o proveedor|Clientes del perfil Comprador|Clientes del perfil Proponente o proveedor|Documentos recurrentes del perfil Comprador|Documentos recurrentes del perfil Proponente o proveedor)\.\s*/,""):q.label)}${req}</span>`;
   if(q.help) h+=`<div class="help">${esc(q.help)}</div>`;
   if(q.max&&q.type==="multi") h+=`<div class="help">Seleccione hasta ${q.max} opciones.</div>`;
@@ -339,7 +348,7 @@ function renderModule(){
   const m=MODULOS[idx]; const qs=visQ(m);
   panel.innerHTML=`<section class="card"><div class="card-head"><div class="icon"><svg viewBox="0 0 24 24">${ICONS[m.icon]}</svg></div>
     <div><span class="code">${esc(PHASES[m.phase].name.toUpperCase())} · MÓDULO ${esc(m.code)}</span><h2>${esc(m.title)}</h2><p><b>Finalidad</b>${esc(m.objective)}</p></div></div>
-    <div class="card-body">${qs.map(fieldHtml).join("")}${m.code==="D9"?`<p class="help" style="margin-top:18px;text-align:justify">Nota. El inventario es una guía de levantamiento y no sustituye la verificación de vigencia, modificaciones, derogatorias y condicionamientos de constitucionalidad de cada norma en SUIN-Juriscol, Secretaría del Senado o Diario Oficial. Los instrumentos señalados con «verificar vigencia» se confirmarán en fuente oficial durante la fase de diseño.</p>`:""}</div></section>`;
+    <div class="card-body">${qs.map(fieldHtml).join("")}${m.code==="D9"?`<p class="help" style="margin-top:18px;text-align:justify">Nota. El inventario es una guía de levantamiento y no sustituye la verificación de vigencia, modificaciones, derogatorias y condicionamientos de constitucionalidad de cada norma en SUIN-Juriscol, Secretaría del Senado o Diario Oficial. Los instrumentos señalados con «verificar vigencia» o «en verificación» se confirmarán en fuente oficial durante la fase de diseño.${KEY.includes("tamayo")?" Las referencias al régimen de insolvencia de la persona natural corresponden al informe normativo con corte al 30 de octubre de 2026; los artículos 572 a 576 del CGP provienen de reproducción secundaria y deben cotejarse con los Diarios Oficiales n.º 53.027 y 53.286.":""}</p>`:""}</div></section>`;
   panel.style.display="block"; $("#form .actions").style.display="flex"; $("#final").style.display="none";
   const ph=phaseOf(idx);
   $("#prev").disabled=idx===firstOf(ph)&&ph===1;
@@ -390,7 +399,7 @@ panel.addEventListener("input",e=>{
   save();
   const f=e.target.closest(".field"); if(f) f.classList.remove("invalid");
   // Cambios que alteran la visibilidad de otras preguntas o requieren refrescar el campo
-  if(qid==="D1.1"||q.rowsFrom||Object.values(QBY).some(x=>x.rowsFrom===qid||(x.showIf&&x.showIf.q===qid))) { const y=window.scrollY; renderModule(); window.scrollTo(0,y); }
+  if(qid==="D1.1"||q.rowsFrom||Object.values(QBY).some(x=>x.rowsFrom===qid||(x.showIf&&x.showIf.q===qid)||(x.when&&(Array.isArray(x.when)?x.when:[x.when]).some(c=>c.q===qid)))) { const y=window.scrollY; renderModule(); window.scrollTo(0,y); }
   else if(rerender){ const y=window.scrollY; const old=panel.querySelector(`.field[data-id="${qid}"]`); if(old){const tmp=document.createElement("div");tmp.innerHTML=fieldHtml(q);old.replaceWith(tmp.firstElementChild);} window.scrollTo(0,y); }
   renderNav();
 });
@@ -408,7 +417,9 @@ function payload(fase){
              "ID de envío":(data._id||=(Date.now().toString(36)+Math.random().toString(36).slice(2,6))),
              "Fase enviada":fase,
              "Firma configurada":CONFIG.firma||"", "Abogado configurado":CONFIG.abogado||"", "Encuentro":CONFIG.encuentro||"",
-             "Perfil (según D1.1)":profileLabel()};
+  };
+  BRANCH_COLS.forEach(c=>{ if(c.id==="__PROFILE__") out[c.label]=profileLabel(); else { const v=data[c.id]; out[c.label]=Array.isArray(v)?v.join(" | "):(v??""); } });
+  if(CONFIG.sheetId) out["_sheetId"]=CONFIG.sheetId;
   MODULOS.forEach(m=>m.q.forEach(q=>{const v=data[q.id]; const vis=visible(q);
     if(q.type==="matrix"||q.type==="numbers"){
       const obj=(v&&typeof v==="object")?v:{};
