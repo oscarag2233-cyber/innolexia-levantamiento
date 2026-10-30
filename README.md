@@ -7,7 +7,7 @@ Instrumentos de levantamiento de información para la fase de diagnóstico y dis
 | Ruta | Cliente | Versión |
 |---|---|---|
 | `nino-fonseca/index.html` | Firma de contratación estatal – Cristian Camilo Niño Fonseca | 5.0 (30-oct-2026) |
-| `tamayo/index.html` | Firma de peritos partidores y liquidadores – José Óscar Tamayo Rivera | 1.0 (30-oct-2026) |
+| `tamayo/index.html` | Firma de peritos partidores y liquidadores – José Óscar Tamayo Rivera | 1.1 (30-oct-2026) |
 
 ## Cómo funciona el instrumento
 
