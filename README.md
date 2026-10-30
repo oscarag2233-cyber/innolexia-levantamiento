@@ -23,7 +23,7 @@ Bloque `CONFIG` al inicio del `<script>` (`firma`, `abogado`, `encuentro`). Se m
 
 ## Receptor multicliente
 
-Un solo despliegue de Apps Script (`fuentes/receptor-apps-script.gs`, v3) atiende a todos los instrumentos. Cada instrumento envía en `CONFIG.sheetId` el ID de su propia hoja de respuestas; si no lo envía, el receptor escribe en la hoja a la que está vinculado. Las claves que empiezan por `_` no se guardan como columnas.
+Cada instrumento tiene su propio despliegue de Apps Script (código `fuentes/receptor-apps-script.gs`, v3): el de contratación estatal está vinculado a su hoja y el de Tamayo a la suya. Cada instrumento envía en `CONFIG.sheetId` el ID de su propia hoja de respuestas; si no lo envía, el receptor escribe en la hoja a la que está vinculado. Las claves que empiezan por `_` no se guardan como columnas.
 
 ## Fuente del cuestionario
 
