@@ -7,6 +7,7 @@ Instrumentos de levantamiento de información para la fase de diagnóstico y dis
 | Ruta | Cliente | Versión |
 |---|---|---|
 | `nino-fonseca/index.html` | Firma de contratación estatal – Cristian Camilo Niño Fonseca | 5.0 (30-oct-2026) |
+| `tamayo/index.html` | Firma de peritos partidores y liquidadores – José Óscar Tamayo Rivera | 1.0 (30-oct-2026) |
 
 ## Cómo funciona el instrumento
 
@@ -20,6 +21,10 @@ Instrumentos de levantamiento de información para la fase de diagnóstico y dis
 
 Bloque `CONFIG` al inicio del `<script>` (`firma`, `abogado`, `encuentro`). Se muestra en la cabecera, prellena M0.1 y M0.3 y se envía en las columnas de control.
 
+## Receptor multicliente
+
+Un solo despliegue de Apps Script (`fuentes/receptor-apps-script.gs`, v3) atiende a todos los instrumentos. Cada instrumento envía en `CONFIG.sheetId` el ID de su propia hoja de respuestas; si no lo envía, el receptor escribe en la hoja a la que está vinculado. Las claves que empiezan por `_` no se guardan como columnas.
+
 ## Fuente del cuestionario
 
-`fuentes/preguntas.json` contiene los diez módulos con enunciados, ayudas, tipos (`text`, `email`, `textarea`, `chips`, `multi`, `rank`, `matrix`, `numbers`), opciones, filas, perfil (`C`/`P`), opciones excluyentes (`excl`), tope de selección (`max`), dependencias (`rowsFrom`) y condicionales (`showIf`). El HTML se genera a partir de este archivo; cualquier cambio al cuestionario debe hacerse allí y regenerar la página para que las columnas de la matriz sigan coincidiendo.
+`fuentes/preguntas.json` (contratación estatal) y `fuentes/preguntas_tamayo.json` (peritos partidores y liquidadores, con bloque `meta` y condicionales `when` sobre D1.1, D1.2 y D1.3) contienen los diez módulos con enunciados, ayudas, tipos (`text`, `email`, `textarea`, `chips`, `multi`, `rank`, `matrix`, `numbers`), opciones, filas, perfil (`C`/`P`), opciones excluyentes (`excl`), tope de selección (`max`), dependencias (`rowsFrom`) y condicionales (`showIf`). El HTML se genera a partir de este archivo; cualquier cambio al cuestionario debe hacerse allí y regenerar la página para que las columnas de la matriz sigan coincidiendo.
