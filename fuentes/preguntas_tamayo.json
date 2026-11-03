@@ -1,7 +1,7 @@
 {
  "meta": {
   "subtitle": "Fase de diagnóstico y diseño · Firma de peritos partidores y liquidadores inscritos ante la Rama Judicial · Jurisdicción: República de Colombia",
-  "intro_branch": "las preguntas se adaptan a los procesos que atiende la firma (partición, liquidación patrimonial o ambos), a la calidad en que actúa (auxiliar de la justicia designado por el despacho, partidor o liquidador designado por las partes, o ambas) y a los regímenes que marque, según las respuestas del módulo D1;",
+  "intro_branch": "las preguntas se adaptan a los procesos que atiende la firma (partición, liquidación patrimonial o ambos), a la calidad en que actúa (auxiliar de la justicia designado por el despacho, partidor o liquidador designado por las partes, u otra), a los regímenes que marque y a si rinde dictámenes periciales, según las respuestas del módulo D1;",
   "phase2_desc": "Experiencia en IA, gobernanza, fuentes jurídicas y expectativas",
   "phase1_desc": "Contexto de la firma, procesos de partición y liquidación, fuentes, información y tecnología",
   "branch_cols": [
@@ -18,8 +18,9 @@
     "label": "Regímenes marcados (según D1.3)"
    }
   ],
-  "storage_key": "innolexia_levantamiento_tamayo_v1",
-  "version": "1.1 · octubre de 2026"
+  "storage_key": "innolexia_levantamiento_tamayo_v2",
+  "version": "1.2 · noviembre de 2026",
+  "otro_row_label": "Otro (indicado en la pregunta anterior)"
  },
  "modules": [
   {
@@ -103,38 +104,59 @@
     {
      "id": "D1.1",
      "label": "¿Qué procesos atiende la firma?",
-     "help": "Marque uno o ambos. La respuesta determina qué bloques se muestran en el resto del instrumento.",
+     "help": "Marque uno o ambos. La respuesta determina qué bloques se muestran en el resto del instrumento. Los regímenes específicos se precisan en D1.3.",
      "type": "multi",
      "req": true,
      "opt": [
-      "Partición (sucesiones, liquidación de sociedad conyugal o patrimonial de hecho)",
+      "Partición (sucesiones, liquidación de sociedad conyugal o de sociedad patrimonial entre compañeros permanentes)",
       "Liquidación patrimonial (insolvencia de persona natural no comerciante o pequeña comerciante, liquidación judicial empresarial u otras liquidaciones con adjudicación)"
      ]
     },
     {
      "id": "D1.2",
      "label": "¿En qué calidad actúa la firma?",
-     "help": "Marque una o ambas.",
+     "help": "Marque todas las que correspondan.",
      "type": "multi",
      "req": true,
      "opt": [
       "Auxiliar de la justicia designado por el despacho (lista de la Rama Judicial)",
-      "Partidor o liquidador designado por las partes, por notaría o por contrato"
+      "Partidor o liquidador designado por las partes, por notaría o por contrato",
+      "En otra calidad. ¿Cuál?"
+     ]
+    },
+    {
+     "id": "D1.2b",
+     "tag": "Auxiliar de la justicia",
+     "when": {
+      "q": "D1.2",
+      "any": [
+       "Auxiliar de la justicia designado por el despacho (lista de la Rama Judicial)"
+      ]
+     },
+     "label": "Como auxiliar de la justicia, ¿en qué cargos ha sido designada la firma o su titular?",
+     "help": "Marque todos los que correspondan.",
+     "type": "multi",
+     "opt": [
+      "Partidor",
+      "Liquidador",
+      "Otro auxiliar. ¿Cuál?"
      ]
     },
     {
      "id": "D1.3",
      "label": "¿Qué regímenes y actuaciones hacen parte de la práctica real de la firma?",
-     "help": "Marque todos los que apliquen. El inventario normativo y las preguntas de procesos se ajustarán a su selección.",
+     "help": "Marque todos los que correspondan. El inventario normativo del módulo D9 se ajustará a su selección.",
      "type": "multi",
      "req": true,
      "opt": [
       "Sucesiones y partición (Código Civil y Código General del Proceso)",
-      "Liquidación de sociedad conyugal o patrimonial de hecho",
+      "Liquidación de sociedad conyugal",
+      "Liquidación de sociedad patrimonial entre compañeros permanentes",
       "Insolvencia de persona natural no comerciante y pequeña comerciante (CGP, Título IV, texto de la Ley 2445 de 2025)",
-      "Liquidación judicial y reorganización empresarial (Ley 1116 de 2006 y Ley 2437 de 2024)",
+      "Reorganización empresarial (Ley 1116 de 2006 y Ley 2437 de 2024)",
+      "Liquidación judicial empresarial (Ley 1116 de 2006 y Ley 2437 de 2024)",
       "Liquidación privada de sociedades (Código de Comercio, arts. 218 a 259)",
-      "Régimen de auxiliares de la justicia (designación, posesión, honorarios, deberes)"
+      "Otro régimen o actuación. ¿Cuál?"
      ]
     },
     {
@@ -143,12 +165,15 @@
      "type": "multi",
      "opt": [
       "Caldas",
-      "Eje Cafetero (Risaralda, Quindío)",
+      "Risaralda",
+      "Quindío",
       "Antioquia",
-      "Bogotá y Cundinamarca",
-      "Otros departamentos. ¿Cuáles?",
-      "Cobertura nacional sin concentración definida"
-     ]
+      "Bogotá, D. C.",
+      "Cundinamarca, excluida Bogotá, D. C.",
+      "Otro departamento. ¿Cuál?",
+      "Cobertura en todo el territorio nacional"
+     ],
+     "help": "Marque todas las que correspondan. Si selecciona cobertura nacional, indique también los departamentos en los que tuvo asuntos."
     },
     {
      "id": "D1.5",
@@ -159,27 +184,31 @@
       "Juzgados civiles del circuito",
       "Juzgados de familia",
       "Juzgados promiscuos",
+      "Tribunales superiores",
       "Notarías",
       "Superintendencia de Sociedades",
-      "Centros de conciliación o de insolvencia",
-      "Tribunales superiores",
-      "Otra. ¿Cuál?"
+      "Centros de conciliación autorizados para conocer procedimientos de insolvencia",
+      "Otra autoridad o instancia. ¿Cuál?",
+      "Ninguna de las anteriores"
+     ],
+     "excl": [
+      "Ninguna de las anteriores"
      ]
     },
     {
      "id": "D1.6",
-     "label": "Número de encargos atendidos en los últimos 12 meses por tipo de proceso",
-     "help": "Indique una respuesta por fila. Marque «Ninguno» si no atiende ese tipo.",
+     "label": "¿Cuántos encargos atendió la firma durante los últimos 12 meses, según el tipo de encargo?",
+     "help": "Marque una sola respuesta por fila. Cuente cada encargo o designación una sola vez, según su objeto principal; no cuente por separado cada actuación realizada dentro del mismo encargo.",
      "type": "matrix",
      "rows": [
       "Sucesión con trabajo de partición y adjudicación",
-      "Liquidación de sociedad conyugal o patrimonial de hecho",
+      "Liquidación de sociedad conyugal o de sociedad patrimonial entre compañeros permanentes",
       "Partición adicional, rescisión o reforma de partición",
-      "Insolvencia de persona natural, negociación de deudas",
-      "Insolvencia de persona natural, liquidación patrimonial con adjudicación",
-      "Liquidación judicial o reorganización (Ley 1116 de 2006)",
-      "Liquidación privada de sociedades (liquidador designado por los socios)",
-      "Avalúos, inventarios o dictámenes periciales",
+      "Insolvencia de persona natural: negociación de deudas o convalidación de acuerdo",
+      "Insolvencia de persona natural: liquidación patrimonial y adjudicación",
+      "Reorganización o liquidación judicial empresarial",
+      "Liquidación privada de sociedades",
+      "Inventarios, avalúos o dictámenes periciales relacionados con estos asuntos",
       "Otro tipo de encargo"
      ],
      "opt": [
@@ -188,52 +217,54 @@
       "6–10",
       "11–25",
       "26–50",
-      "Más de 50"
+      "Más de 50",
+      "No sabe / no puede precisar"
      ]
     },
     {
      "id": "D1.7",
-     "label": "Durante los últimos 12 meses, ¿qué servicios generaron los mayores ingresos para la firma?",
-     "help": "Seleccione y ordene hasta cinco, desde el que generó más ingresos (1) hasta el quinto (5). El orden de clic define la posición.",
+     "label": "En los últimos 12 meses, ¿qué servicios generaron mayores ingresos para la firma?",
+     "help": "Seleccione y ordene hasta cinco: asigne el puesto 1 al que generó más ingresos y continúe en orden descendente (el orden de clic define la posición). Aplique un mismo criterio, ingresos recibidos o facturados, para todas las opciones.",
      "type": "rank",
      "max": 5,
      "opt": [
       "Trabajos de partición y adjudicación en sucesiones",
-      "Liquidación de sociedad conyugal o patrimonial",
+      "Liquidación de sociedad conyugal o sociedad patrimonial",
+      "Insolvencia de persona natural: negociación de deudas o convalidación de acuerdos",
+      "Insolvencia de persona natural: liquidación patrimonial",
+      "Reorganización o liquidación judicial empresarial",
+      "Liquidación privada de sociedades",
       "Inventarios y avalúos",
       "Calificación y graduación de créditos",
       "Proyectos de adjudicación en liquidación patrimonial",
       "Administración de bienes y rendición de cuentas",
-      "Liquidación judicial o reorganización empresarial",
-      "Dictámenes periciales en otras materias",
+      "Dictámenes periciales",
       "Conceptos y asesoría a herederos, acreedores o deudores",
       "Otro. ¿Cuál?"
      ]
     },
     {
      "id": "D1.8",
-     "label": "Tomando como referencia los últimos 12 meses, ¿qué servicios requirieron más tiempo de trabajo de la firma?",
-     "help": "Seleccione y ordene hasta cinco. Asigne el 1 al que más tiempo demandó.",
+     "label": "Durante los últimos 12 meses, ¿qué servicios demandaron más tiempo de trabajo de la firma?",
+     "help": "Seleccione y ordene hasta cinco: asigne el puesto 1 al servicio que demandó más tiempo total. Considere el tiempo invertido por todas las personas que trabajaron en el encargo.",
      "type": "rank",
      "max": 5,
      "opt": [
       "Trabajos de partición y adjudicación en sucesiones",
-      "Liquidación de sociedad conyugal o patrimonial",
+      "Liquidación de sociedad conyugal o sociedad patrimonial",
+      "Insolvencia de persona natural: negociación de deudas o convalidación de acuerdos",
+      "Insolvencia de persona natural: liquidación patrimonial",
+      "Reorganización o liquidación judicial empresarial",
+      "Liquidación privada de sociedades",
       "Inventarios y avalúos",
       "Calificación y graduación de créditos",
       "Proyectos de adjudicación en liquidación patrimonial",
       "Administración de bienes y rendición de cuentas",
-      "Liquidación judicial o reorganización empresarial",
-      "Dictámenes periciales en otras materias",
+      "Dictámenes periciales",
+      "Conceptos y asesoría a herederos, acreedores o deudores",
       "Comunicaciones, notificaciones y trámites operativos",
       "Otro. ¿Cuál?"
      ]
-    },
-    {
-     "id": "D1.9",
-     "label": "Dato complementario (opcional). Para los servicios seleccionados indique, si lo conoce, el número aproximado de encargos en los últimos 12 meses y las horas promedio de trabajo por encargo",
-     "type": "textarea",
-     "help": "Ejemplo: trabajos de partición, 20 encargos, 25 horas por encargo."
     }
    ]
   },
@@ -241,7 +272,7 @@
    "code": "D2",
    "title": "Procesos y flujos documentales",
    "icon": "flow",
-   "objective": "Identificar los documentos que produce la firma en cada tipo de proceso, los insumos que recibe, los cálculos que realiza, su frecuencia y tiempo efectivo de elaboración, las causas de corrección o reproceso, los plazos que generan mayor presión y el grado de estandarización documental, para localizar dónde la IA puede generar mayor valor.",
+   "objective": "Identificar los documentos que produce la firma en cada tipo de proceso, los insumos que recibe y cómo los controla, los cálculos que realiza, su frecuencia y tiempo efectivo de elaboración, las causas de corrección o reproceso, los plazos que generan mayor presión, el grado de estandarización documental y la práctica pericial, para localizar dónde la IA puede generar mayor valor.",
    "q": [
     {
      "id": "D2.1A",
@@ -249,7 +280,7 @@
      "when": {
       "q": "D1.1",
       "any": [
-       "Partición (sucesiones, liquidación de sociedad conyugal o patrimonial de hecho)"
+       "Partición (sucesiones, liquidación de sociedad conyugal o de sociedad patrimonial entre compañeros permanentes)"
       ]
      },
      "label": "Documentos que la firma produjo de forma recurrente en procesos de partición durante los últimos 12 meses",
@@ -297,7 +328,7 @@
      "when": {
       "q": "D1.1",
       "any": [
-       "Partición (sucesiones, liquidación de sociedad conyugal o patrimonial de hecho)"
+       "Partición (sucesiones, liquidación de sociedad conyugal o de sociedad patrimonial entre compañeros permanentes)"
       ]
      },
      "rowsFrom": "D2.1A",
@@ -343,12 +374,12 @@
      "when": {
       "q": "D1.1",
       "any": [
-       "Partición (sucesiones, liquidación de sociedad conyugal o patrimonial de hecho)"
+       "Partición (sucesiones, liquidación de sociedad conyugal o de sociedad patrimonial entre compañeros permanentes)"
       ]
      },
      "rowsFrom": "D2.1A",
      "label": "Partición. Tiempo efectivo promedio que dedica el equipo a elaborar un documento terminado de cada tipo",
-     "help": "Incluya análisis de insumos, cálculos, redacción, revisión interna y ajustes; excluya tiempos de espera. Una jornada equivale a 8 horas.",
+     "help": "Responda solo para los tres documentos más frecuentes y deje las demás filas en blanco. Incluya análisis de insumos, cálculos, redacción, revisión interna y ajustes; excluya tiempos de espera. Una jornada equivale a 8 horas.",
      "type": "matrix",
      "opt": [
       "Menos de 1 hora",
@@ -370,7 +401,7 @@
      },
      "rowsFrom": "D2.1B",
      "label": "Liquidación patrimonial. Tiempo efectivo promedio que dedica el equipo a elaborar un documento terminado de cada tipo",
-     "help": "Incluya análisis de insumos, cálculos, redacción, revisión interna y ajustes; excluya tiempos de espera. Una jornada equivale a 8 horas.",
+     "help": "Responda solo para los tres documentos más frecuentes y deje las demás filas en blanco. Incluya análisis de insumos, cálculos, redacción, revisión interna y ajustes; excluya tiempos de espera. Una jornada equivale a 8 horas.",
      "type": "matrix",
      "opt": [
       "Menos de 1 hora",
@@ -383,64 +414,114 @@
     },
     {
      "id": "D2.4",
-     "label": "Insumos que recibe la firma al inicio de un encargo",
-     "help": "Marque todos los que correspondan.",
+     "label": "En los encargos atendidos durante los últimos 12 meses, ¿qué insumos suele recibir la firma al inicio del trabajo?",
+     "help": "Marque todos los que correspondan. Considere tanto los documentos recibidos con la designación o solicitud como los aportados por las partes.",
      "type": "multi",
      "opt": [
-      "Expediente judicial o notarial (físico o digital)",
-      "Escrituras públicas y certificados de tradición y libertad",
-      "Avalúos catastrales o comerciales",
-      "Extractos bancarios y estados de cuenta",
-      "Títulos de crédito y soportes de obligaciones",
-      "Declaraciones de renta y estados financieros",
-      "Registros civiles y documentos de identidad",
+      "Providencia, acta o documento de designación",
+      "Solicitud o contrato de servicios",
+      "Objeto del encargo, alcance y preguntas que debe resolver el profesional",
+      "Plazo para entregar el informe o trabajo",
+      "No recibe instrucciones escritas sobre el objeto o alcance",
+      "Expediente judicial o notarial, físico o digital",
+      "Inventario de bienes, deudas, herederos, acreedores u otros interesados",
       "Relación de bienes y deudas aportada por las partes",
-      "Otro. ¿Cuál?"
+      "Registros civiles y documentos de identidad",
+      "Escrituras públicas y certificados de tradición y libertad",
+      "Avalúos catastrales o comerciales previos",
+      "Títulos de crédito y soportes de obligaciones",
+      "Extractos bancarios y estados de cuenta",
+      "Declaraciones de renta y estados financieros",
+      "Dictámenes, informes técnicos o valoraciones anteriores",
+      "Otro insumo. ¿Cuál?"
+     ]
+    },
+    {
+     "id": "D2.4b",
+     "label": "¿Qué controles aplica la firma para revisar los insumos antes de utilizarlos?",
+     "help": "Marque todos los que correspondan.",
+     "type": "multi",
+     "excl": [
+      "No aplica un procedimiento común de revisión",
+      "No sabe / no tiene información"
+     ],
+     "opt": [
+      "Verifica que estén completos frente al objeto del encargo",
+      "Revisa la coherencia entre documentos y datos aportados",
+      "Comprueba fechas, vigencia y fuente de la información",
+      "Identifica documentos faltantes y solicita complementación",
+      "Deja registro de las limitaciones derivadas de información incompleta o no verificable",
+      "Otro control. ¿Cuál?",
+      "No aplica un procedimiento común de revisión",
+      "No sabe / no tiene información"
      ]
     },
     {
      "id": "D2.5",
-     "label": "Cálculos que realiza la firma de manera habitual y herramienta con la que los hace",
-     "help": "Una opción por fila.",
+     "label": "¿Qué cálculos o valoraciones realiza habitualmente la firma y qué método o herramienta utiliza principalmente para cada uno?",
+     "help": "Marque una opción por fila. Si utiliza varios métodos, indique el principal.",
      "type": "matrix",
      "rows": [
       "Liquidación de gananciales, recompensas y pasivo social",
       "Cálculo de hijuelas, cuotas y porcentajes de adjudicación",
-      "Actualización de valores (indexación, intereses)",
-      "Prelación y graduación de créditos",
+      "Actualización de valores, indexación e intereses",
+      "Calificación y graduación de créditos",
       "Prorrateo y distribución del producto de los bienes",
-      "Honorarios del auxiliar según tarifas",
-      "Avalúo de bienes"
+      "Cálculo de honorarios del auxiliar conforme a las tarifas aplicables",
+      "Valoración o avalúo de bienes",
+      "Otro cálculo o valoración"
      ],
      "opt": [
       "Hoja de cálculo propia",
       "Plantilla estandarizada de la firma",
       "Software especializado",
-      "Manualmente",
-      "No aplica"
+      "Cálculo manual",
+      "Método técnico específico distinto de los anteriores",
+      "No lo realiza",
+      "No sabe / no tiene registro"
      ]
     },
     {
+     "id": "D2.5b",
+     "when": {
+      "q": "D2.5",
+      "row": "Valoración o avalúo de bienes",
+      "any": [
+       "Hoja de cálculo propia",
+       "Plantilla estandarizada de la firma",
+       "Software especializado",
+       "Cálculo manual",
+       "Método técnico específico distinto de los anteriores"
+      ]
+     },
+     "label": "Para la valoración o avalúo de bienes, ¿qué método de valoración aplica y qué fuentes utiliza?",
+     "help": "Describa brevemente el método (por ejemplo, comparativo de mercado, costo de reposición, renta) y las fuentes de información (catastro, ofertas, peritos externos u otras).",
+     "type": "textarea"
+    },
+    {
      "id": "D2.6",
-     "label": "¿Con qué frecuencia fue necesario corregir o volver a trabajar los documentos después de su primera elaboración, por cada causa?",
-     "help": "Considere los últimos 12 meses, tanto por revisión interna como por ajustes solicitados por el despacho, las partes u otra autoridad. Una respuesta por fila.",
+     "label": "Durante los últimos 12 meses, ¿en cuántos encargos fue necesario corregir, complementar o rehacer un documento después de su primera elaboración, por cada causa?",
+     "help": "Seleccione una respuesta por fila. Considere tanto las revisiones internas como los ajustes solicitados por el despacho, las partes u otra autoridad.",
      "type": "matrix",
      "rows": [
-      "Errores aritméticos o de cálculo",
-      "Errores de redacción, ortografía, formato o presentación",
-      "Omisión de bienes, deudas, herederos o acreedores",
-      "Referencias normativas o análisis jurídicos incompletos o desactualizados",
+      "Error aritmético o de cálculo",
+      "Error de redacción, ortografía, formato o presentación",
+      "Omisión o identificación incorrecta de bienes, deudas, herederos, acreedores u otros interesados",
+      "Referencia normativa o análisis jurídico incompleto o desactualizado",
       "Inconsistencias entre inventario, avalúo y trabajo de partición o adjudicación",
-      "Falta de información o entrega tardía de insumos por las partes",
-      "Objeciones de las partes o acreedores aceptadas por el despacho",
-      "Observaciones del juez, notario o autoridad",
-      "Uso de una versión anterior o incorrecta del documento o de sus insumos"
+      "Información incompleta, tardía o modificada después de recibirse",
+      "Aclaración o corrección solicitada por el despacho, notaría u otra autoridad",
+      "Objeción de una parte o acreedor que dio lugar a un ajuste",
+      "Uso de una versión anterior o incorrecta de un documento o insumo",
+      "Otra causa"
      ],
      "opt": [
       "Nunca",
-      "Ocasionalmente",
-      "Frecuentemente",
-      "No sabe / no tiene registro"
+      "En 1 o 2 encargos",
+      "En 3 a 5 encargos",
+      "En 6 o más encargos",
+      "No sabe / no lleva registro",
+      "No aplica"
      ]
     },
     {
@@ -449,7 +530,7 @@
      "when": {
       "q": "D1.1",
       "any": [
-       "Partición (sucesiones, liquidación de sociedad conyugal o patrimonial de hecho)"
+       "Partición (sucesiones, liquidación de sociedad conyugal o de sociedad patrimonial entre compañeros permanentes)"
       ]
      },
      "label": "Partición. Seleccione hasta tres actividades cuyos plazos hayan generado mayor presión de trabajo en los últimos 12 meses",
@@ -517,21 +598,61 @@
     },
     {
      "id": "D2.9",
-     "label": "¿Cuál es la situación de los lineamientos internos de estilo, redacción y presentación de los trabajos periciales?",
+     "label": "¿Cuál es la situación de los lineamientos internos para elaborar, verificar y presentar los trabajos de partición, liquidación y los dictámenes o informes periciales?",
      "type": "chips",
      "opt": [
-      "Documentados, actualizados, disponibles y aplicados de manera habitual",
-      "Documentados, pero parciales o que requieren actualización",
-      "Documentados y actualizados, pero su aplicación varía entre los integrantes del equipo",
-      "Existen criterios compartidos, pero no están documentados",
+      "Están documentados, actualizados y se aplican habitualmente",
+      "Están documentados, pero son parciales o requieren actualización",
+      "Están documentados y actualizados, pero su aplicación varía entre los integrantes del equipo",
+      "Hay criterios compartidos, pero no están documentados",
+      "Cada profesional aplica criterios propios",
       "No existen lineamientos comunes",
+      "No sabe / no tiene información"
+     ],
+     "help": "Los lineamientos pueden comprender definición del objeto y alcance, metodología, fuentes e insumos, operaciones realizadas, supuestos y limitaciones, revisión de cálculos, anexos y trazabilidad de versiones."
+    },
+    {
+     "id": "D2.10",
+     "tag": "Práctica pericial",
+     "when": {
+      "q": "D1.6",
+      "row": "Inventarios, avalúos o dictámenes periciales relacionados con estos asuntos",
+      "any": [
+       "1–5",
+       "6–10",
+       "11–25",
+       "26–50",
+       "Más de 50"
+      ]
+     },
+     "label": "Práctica pericial. En los dictámenes, avalúos o informes técnicos de los últimos 12 meses, ¿qué actividades realizó personalmente el profesional responsable y qué controles aplicó la firma sobre su idoneidad e independencia?",
+     "help": "Marque todas las opciones que correspondan. Responda de forma general y anonimizada, sin nombres, radicados ni datos de casos concretos. Esta autoevaluación identifica prácticas y brechas; no sustituye la revisión de un dictamen concreto.",
+     "type": "multi",
+     "excl": [
+      "No existe un control común ni se ha delimitado la responsabilidad personal",
+      "No sabe / no tiene información"
+     ],
+     "opt": [
+      "Delimitó personalmente el objeto, el alcance y las preguntas técnicas del encargo",
+      "Examinó personalmente los documentos, datos y materiales recibidos",
+      "Realizó personalmente inspecciones, cálculos, pruebas u otros exámenes técnicos",
+      "Seleccionó y aplicó los métodos, instrumentos o estándares utilizados",
+      "Redactó el dictamen o sus partes sustanciales y firmó asumiendo la responsabilidad por su contenido",
+      "Sustentó el dictamen en audiencia o respondió preguntas sobre su contenido",
+      "Delegó tareas de examen, análisis o redacción en otras personas y revisó su trabajo",
+      "La firma verifica la formación, habilitación y experiencia del responsable en la materia del encargo",
+      "La firma verifica la independencia y registra posibles conflictos de interés antes de aceptar el encargo",
+      "La firma define el método técnico y un procedimiento para verificar operaciones, fuentes y resultados",
+      "La firma conserva papeles de trabajo, versiones y soportes de estas verificaciones",
+      "Otra actividad o control. ¿Cuál?",
+      "No existe un control común ni se ha delimitado la responsabilidad personal",
       "No sabe / no tiene información"
      ]
     },
     {
-     "id": "D2.10",
-     "label": "Flujo de trabajo del encargo prioritario. Seleccione uno de los servicios que identificó como de mayor facturación, mayor consumo de tiempo o producción más frecuente y describa paso a paso cómo se desarrolla, desde la designación o solicitud hasta la entrega",
-     "help": "Incluya brevemente, a saber, tipo de encargo y quién lo asigna (despacho, notaría, partes); insumos que se reciben; etapas y su orden; responsables de cada etapa y de la revisión o aprobación; herramientas, plantillas, hojas de cálculo y fuentes utilizadas; resultado entregado, a quién y en qué formato; etapa en que suelen presentarse demoras, correcciones o reprocesos. Si la firma atiende partición y liquidación, describa cada uno por separado.",
+     "id": "D2.11",
+     "label": "Flujo del encargo más frecuente. Tome el tipo de encargo que la firma atendió con mayor frecuencia en los últimos 12 meses y describa, de manera anonimizada, sus etapas habituales desde la recepción o designación hasta la entrega del informe o trabajo final",
+     "help": "Incluya, cuando corresponda: recepción de la designación o solicitud y verificación de independencia; delimitación del objeto, alcance y preguntas por resolver; recepción, inventario y control de documentos e insumos; aplicación de la metodología y realización de cálculos o análisis; verificación de operaciones, fuentes y resultados; elaboración y revisión del informe; entrega, aclaraciones y control de versiones; archivo de soportes y papeles de trabajo. Indique responsables, herramientas y plantillas en cada etapa.",
      "type": "textarea",
      "req": true
     }
@@ -541,8 +662,8 @@
    "code": "D3",
    "title": "Fuentes de información y gestión del conocimiento",
    "icon": "book",
-   "obs": "¿Hay alguna fuente de información, práctica de consulta o verificación, repositorio, herramienta, criterio de actualización o restricción de acceso que no haya quedado registrada y que sea relevante para comprender cómo trabaja la firma? No incluya datos personales, reservados o confidenciales.",
-   "objective": "Conocer qué fuentes consulta el equipo y con qué frecuencia, cómo verifica la vigencia y pertinencia de normas, tarifas y jurisprudencia, cuánto tiempo dedica a esa verificación y cómo organiza y conserva el conocimiento reutilizable (trabajos anteriores, modelos de cálculo, criterios), pues de ello dependen los controles de verificación y las bases documentales de cualquier asistente de IA.",
+   "obs": "¿Hay alguna fuente de información, práctica de consulta o verificación, repositorio, herramienta, criterio de actualización o restricción de acceso que no haya quedado registrada y sea relevante para comprender cómo trabaja la firma? No incluya datos personales, reservados o confidenciales.",
+   "objective": "Conocer qué fuentes consulta la firma y con qué frecuencia; cómo verifica la vigencia y pertinencia de normas, tarifas y jurisprudencia; cuánto tiempo dedica a esa labor; y cómo organiza y conserva los materiales que podrían servir de referencia en trabajos posteriores. Esta información permite identificar necesidades de verificación, actualización, trazabilidad y organización documental relevantes para diseñar o implementar un asistente de IA.",
    "q": [
     {
      "id": "D3.1",
@@ -551,6 +672,7 @@
      "type": "matrix",
      "rows": [
       "Consulta de procesos y estados electrónicos de la Rama Judicial",
+      "Consulta de expedientes judiciales o notariales",
       "Normativa en portales oficiales (SUIN-Juriscol, Secretaría del Senado)",
       "Jurisprudencia de la Corte Suprema de Justicia, Sala de Casación Civil",
       "Jurisprudencia de la Corte Constitucional",
@@ -571,11 +693,6 @@
       "Nunca",
       "No sabe / No aplica"
      ]
-    },
-    {
-     "id": "D3.1b",
-     "label": "Otra fuente consultada con regularidad no incluida en la tabla (opcional)",
-     "type": "text"
     },
     {
      "id": "D3.2",
@@ -599,14 +716,20 @@
     },
     {
      "id": "D3.2b",
-     "label": "Si utiliza alertas o boletines, ¿confirma luego la información en la fuente oficial?",
+     "label": "Si utiliza alertas o boletines, ¿confirma la información en una fuente oficial antes de aplicarla?",
      "type": "chips",
      "opt": [
-      "Sí",
-      "No",
+      "Sí, habitualmente",
       "Algunas veces",
-      "No aplica / No sabe"
-     ]
+      "No",
+      "No sabe / no tiene información"
+     ],
+     "when": {
+      "q": "D3.2",
+      "any": [
+       "Uso de alertas, boletines o sistemas de seguimiento de novedades"
+      ]
+     }
     },
     {
      "id": "D3.3",
@@ -653,26 +776,43 @@
      "opt": [
       "Plataforma de gestión documental o de conocimiento",
       "Nube corporativa o espacio compartido institucional",
+      "Sistema de gestión de expedientes, procesos o casos",
       "Servidor local o unidad de red compartida",
       "Carpetas compartidas en equipos de la firma",
       "Correo electrónico",
-      "Equipos o cuentas personales de los integrantes del equipo",
+      "Equipos o cuentas personales de integrantes del equipo",
       "Archivos físicos",
-      "Base de datos jurídica privada",
+      "Discos externos u otros medios de almacenamiento",
+      "Repositorio propio alojado en una plataforma externa",
       "Otro medio. ¿Cuál?",
       "No sabe / No tiene información"
      ]
     },
     {
-     "id": "D3.6",
-     "label": "¿Cuántos trabajos periciales anteriores (trabajos de partición, liquidaciones, proyectos de adjudicación) podría aportar la firma, anonimizados, como insumo para entrenar o configurar los asistentes de IA?",
+     "id": "D3.6a",
+     "label": "¿Cuántos trabajos anteriores de la firma (trabajos de partición, liquidaciones, proyectos de adjudicación o dictámenes) podrían evaluarse, tras una revisión previa, como ejemplos de prueba o material de consulta para un asistente de IA?",
      "type": "chips",
      "opt": [
-      "Menos de 5",
-      "5 a 10",
-      "11 a 30",
-      "Más de 30",
-      "Por definir"
+      "Ninguno",
+      "De 1 a 4",
+      "De 5 a 10",
+      "De 11 a 30",
+      "31 o más",
+      "No se ha evaluado",
+      "No sabe / no tiene información"
+     ],
+     "help": "Indique un rango. No adjunte ni cargue documentos. La respuesta no autoriza su entrega ni su reutilización."
+    },
+    {
+     "id": "D3.6b",
+     "label": "¿La firma ha definido bajo qué condiciones podrían reutilizarse esos materiales en un sistema de IA?",
+     "type": "chips",
+     "opt": [
+      "Sí, mediante un procedimiento documentado de revisión y anonimización",
+      "Sí, caso por caso, antes de autorizar cualquier reutilización",
+      "No se ha definido un procedimiento",
+      "No podrían reutilizarse por restricciones de confidencialidad, autorización o protección de datos",
+      "No sabe / no tiene información"
      ]
     }
    ]
@@ -687,43 +827,47 @@
     {
      "id": "D4.1",
      "label": "¿Qué tipos de información recibe, consulta, elabora o conserva la firma en sus encargos?",
-     "help": "Las categorías pueden superponerse.",
+     "help": "Marque todas las opciones que correspondan. Las categorías pueden coincidir en un mismo encargo.",
      "type": "multi",
      "req": true,
      "excl": [
       "No sabe / no tiene información"
      ],
      "opt": [
-      "Información de acceso público (registros, sentencias publicadas)",
-      "Expedientes judiciales o notariales no públicos",
+      "Información de acceso público, como sentencias publicadas o datos de registros públicos",
+      "Expedientes judiciales o notariales no disponibles para consulta pública",
       "Datos personales de herederos, cónyuges, acreedores, deudores u otras personas",
-      "Datos personales sensibles (salud, menores, situación familiar)",
+      "Datos personales sensibles, como información de salud o biométrica",
+      "Datos personales de niños, niñas y adolescentes",
       "Información financiera, bancaria, tributaria o patrimonial",
       "Información comercial o empresarial confidencial",
-      "Información sometida a reserva legal o judicial",
+      "Información sometida a reserva legal, judicial o contractual",
       "Información protegida por el secreto profesional o relacionada con la estrategia del encargo",
       "Credenciales, claves u otros datos de acceso a sistemas o plataformas",
-      "Otra. ¿Cuál?",
+      "Otro tipo de información. ¿Cuál?",
       "No sabe / no tiene información"
      ]
     },
     {
      "id": "D4.2",
-     "label": "¿Qué controles o criterios aplica la firma antes de ingresar información de los procesos en plataformas digitales externas o herramientas de IA?",
+     "label": "¿Qué controles aplica la firma antes de ingresar información de los encargos en plataformas externas, incluidas herramientas de inteligencia artificial?",
      "type": "multi",
      "excl": [
       "No existe un procedimiento definido",
       "No sabe / no tiene información"
      ],
      "opt": [
-      "No se ingresa información confidencial, reservada o sujeta a secreto profesional en herramientas externas",
+      "No se ingresan datos personales, reservados o confidenciales en herramientas externas",
       "Solo se utilizan herramientas previamente aprobadas por la firma",
-      "Se revisan las condiciones de uso, privacidad, almacenamiento y conservación de la herramienta",
-      "Se eliminan o sustituyen datos identificadores antes de usar la información",
-      "Se solicita autorización de las partes o del despacho cuando corresponde",
+      "Se clasifica la información antes de decidir si puede ingresarse",
+      "Se verifica que el uso sea compatible con la finalidad, las instrucciones y las condiciones aplicables al encargo",
+      "Se revisan las condiciones del proveedor sobre uso, almacenamiento, conservación, eliminación y posible utilización de la información para entrenar o mejorar modelos",
+      "Se revisan las medidas de seguridad, confidencialidad y control de acceso de la herramienta",
+      "Se eliminan o sustituyen datos identificadores, o se usan datos sintéticos, cuando corresponde",
+      "Se obtiene autorización previa cuando sea exigible",
       "La decisión se toma caso por caso, sin un procedimiento escrito",
-      "No existe un procedimiento definido",
       "Otro control. ¿Cuál?",
+      "No existe un procedimiento definido",
       "No sabe / no tiene información"
      ]
     },
@@ -732,10 +876,10 @@
      "label": "¿Cómo determina la firma si la información es pública, interna, confidencial, reservada o está sujeta a restricciones de uso?",
      "type": "chips",
      "opt": [
-      "Existe una política o procedimiento escrito y hay un responsable definido",
-      "Se aplican las reglas del proceso y las instrucciones del despacho o de las partes",
-      "El profesional responsable determina el tratamiento caso por caso, sin un procedimiento común",
-      "Cada integrante decide según su criterio, sin pautas compartidas",
+      "La firma aplica una política o procedimiento escrito y tiene un responsable definido",
+      "Se siguen principalmente las instrucciones del despacho, de las partes o del contrato, sin un procedimiento general de la firma",
+      "El profesional responsable decide caso por caso, sin un procedimiento común",
+      "Cada integrante decide según su propio criterio",
       "No existe un criterio o procedimiento definido",
       "Otro. ¿Cuál?",
       "No sabe / no tiene información"
@@ -751,10 +895,12 @@
       "No sabe / no tiene información"
      ],
      "opt": [
-      "Prohíben o limitan el uso de plataformas externas o herramientas de IA",
-      "Exigen autorización previa para utilizar plataformas externas o herramientas de IA",
+      "Prohíben o limitan el uso de plataformas externas o herramientas de inteligencia artificial",
+      "Exigen autorización previa para utilizar esas plataformas o herramientas",
       "Exigen medidas específicas de seguridad, confidencialidad o control de acceso",
-      "Restringen el almacenamiento o tratamiento de información fuera de Colombia",
+      "Restringen el acceso, almacenamiento o tratamiento internacional de la información",
+      "Exigen utilizar proveedores o plataformas determinadas",
+      "Establecen condiciones para conservar, devolver o eliminar la información",
       "Imponen otras condiciones. ¿Cuáles?",
       "No se han identificado restricciones",
       "No se ha revisado este aspecto",
@@ -762,15 +908,28 @@
      ]
     },
     {
-     "id": "D4.5",
+     "id": "D4.5a",
+     "label": "¿La firma ha determinado qué papel cumple frente a los datos personales que trata?",
+     "type": "chips",
+     "opt": [
+      "Actúa como responsable del tratamiento",
+      "Actúa como encargada del tratamiento",
+      "Puede actuar como responsable o encargada, según el encargo",
+      "No lo ha determinado",
+      "No sabe / no tiene información"
+     ]
+    },
+    {
+     "id": "D4.5b",
      "label": "Estado de los instrumentos y prácticas de protección de datos personales en la firma (Ley 1581 de 2012 y Decreto 1074 de 2015)",
-     "help": "Una sola opción por fila. La ausencia de inscripción en el RNBD no implica por sí sola incumplimiento; la obligación depende de las condiciones del responsable.",
+     "help": "Marque una sola opción por fila. La inscripción en el Registro Nacional de Bases de Datos (RNBD) no es una obligación universal; depende de las condiciones del responsable, y su no obligatoriedad no elimina las demás obligaciones de protección de datos.",
      "type": "matrix",
      "rows": [
       "Política de tratamiento de datos personales",
-      "Aviso de privacidad, cuando corresponde",
+      "Aviso de privacidad, cuando corresponda",
       "Procedimiento para atender consultas y reclamos de titulares",
-      "Evaluación de si la firma está obligada a inscribirse en el Registro Nacional de Bases de Datos (RNBD)",
+      "Medidas de seguridad para proteger las bases de datos",
+      "Evaluación de si la firma está obligada a inscribirse en el RNBD",
       "Inscripción y actualización en el RNBD, si la firma está obligada",
       "Revisión de las condiciones aplicables a transferencias o transmisiones internacionales de datos, cuando las haya"
      ],
@@ -807,48 +966,46 @@
       "No sabe / no tiene información"
      ],
      "opt": [
-      "Suite de productividad y colaboración (Microsoft 365, Google Workspace u otra)",
-      "Hojas de cálculo para liquidaciones y particiones (Excel, Google Sheets)",
+      "Suite de productividad y colaboración, como Microsoft 365 o Google Workspace",
+      "Hojas de cálculo para liquidaciones, particiones u otros cálculos, como Excel o Google Sheets",
       "Plataforma de almacenamiento o intercambio de archivos en la nube",
       "Gestor documental o sistema de gestión de expedientes",
       "Software contable o financiero",
       "Software de gestión de tareas, casos o procesos",
-      "Firma electrónica o digital",
-      "Herramientas de inteligencia artificial generativa",
-      "Soluciones de seguridad (antivirus, protección de dispositivos, gestión de contraseñas)",
-      "Otra. ¿Cuál?",
+      "Herramienta de firma electrónica o digital",
+      "Herramientas de inteligencia artificial generativa, independientes o integradas en otros programas",
+      "Soluciones de seguridad, como antivirus, protección de dispositivos o gestión de contraseñas",
+      "Herramientas de copias de seguridad o recuperación de información",
+      "Otro. ¿Cuál?",
       "No sabe / no tiene información"
      ]
     },
     {
      "id": "D5.1b",
-     "label": "Nombres de las herramientas, si los conoce",
-     "type": "text"
+     "label": "Nombres de las herramientas que utiliza, si los conoce",
+     "type": "text",
+     "help": "Señale brevemente para qué se usa cada una y si el acceso se realiza mediante una cuenta de la firma o personal. No incluya usuarios, contraseñas, claves ni otros datos de acceso."
     },
     {
      "id": "D5.2",
-     "label": "Plataformas y sistemas oficiales en los que opera la firma",
+     "label": "¿Con qué frecuencia utiliza la firma las siguientes plataformas o sistemas oficiales?",
      "help": "Una opción por fila.",
      "type": "matrix",
      "rows": [
-      "Portal de la Rama Judicial (consulta de procesos, estados, Tyba o similares)",
-      "Correo institucional de los despachos para radicación de memoriales",
-      "Ventanilla Única de Registro (VUR) / Superintendencia de Notariado y Registro",
+      "Portal de la Rama Judicial para consultar procesos y estados, incluido TYBA u otros sistemas habilitados",
+      "Canales institucionales de radicación o recepción de documentos judiciales, como correo electrónico u otros sistemas habilitados",
+      "Ventanilla Única de Registro (VUR) o sistemas de la Superintendencia de Notariado y Registro",
       "Plataformas de la Superintendencia de Sociedades",
-      "Portales catastrales (IGAC, gestores catastrales)",
-      "Sistema de información de auxiliares de la justicia (lista, designaciones)"
+      "Portales catastrales del IGAC o de gestores catastrales",
+      "Sistema de información de auxiliares de la justicia, para consultar listas o designaciones"
      ],
      "opt": [
       "Uso frecuente",
       "Uso ocasional",
       "No utiliza",
-      "No sabe"
+      "No aplica",
+      "No sabe / no tiene información"
      ]
-    },
-    {
-     "id": "D5.2b",
-     "label": "Otra plataforma o sistema oficial en que opera (opcional)",
-     "type": "text"
     },
     {
      "id": "D5.3",
@@ -857,17 +1014,19 @@
      "type": "matrix",
      "rows": [
       "Cada integrante tiene una cuenta individual",
-      "Se utiliza autenticación multifactor (MFA)",
-      "Se usa inicio de sesión único (SSO), cuando está disponible",
+      "Se utiliza autenticación multifactor cuando está disponible",
+      "Se utiliza inicio de sesión único (SSO) cuando está disponible",
       "Los permisos se asignan según las funciones de cada persona",
       "Se revisan o retiran los accesos cuando cambian las funciones o termina una vinculación",
-      "Se evita compartir cuentas o contraseñas"
+      "Se evita compartir cuentas o contraseñas",
+      "Se revisan periódicamente los permisos de acceso"
      ],
      "opt": [
       "Aplicado en toda la firma",
       "Aplicado parcialmente",
-      "No aplicado",
-      "No sabe"
+      "No implementado",
+      "No aplica / no está disponible",
+      "No sabe / no tiene información"
      ]
     },
     {
@@ -878,11 +1037,16 @@
       "No sabe / no tiene información"
      ],
      "opt": [
-      "Dispositivos suministrados o administrados por la firma",
+      "Computadores de escritorio suministrados o administrados por la firma",
+      "Computadores portátiles suministrados o administrados por la firma",
+      "Teléfonos o tabletas suministrados o administrados por la firma",
       "Dispositivos personales autorizados para actividades laborales",
-      "Otro. ¿Cuál?",
+      "Dispositivos personales utilizados para el trabajo, pero no administrados centralmente por la firma",
+      "Memorias USB, discos externos u otros medios removibles",
+      "Otro tipo de dispositivo. ¿Cuál?",
       "No sabe / no tiene información"
-     ]
+     ],
+     "help": "Marque todas las opciones que correspondan. Considere tanto quién suministra el dispositivo como si la firma lo administra."
     },
     {
      "id": "D5.5",
@@ -945,89 +1109,111 @@
    "q": [
     {
      "id": "D6.1",
-     "label": "Herramientas de IA que ha usado la firma o sus integrantes",
+     "label": "¿Qué herramientas de inteligencia artificial ha utilizado la firma o alguno de sus integrantes para actividades relacionadas con el trabajo?",
      "type": "multi",
      "req": true,
      "excl": [
-      "Ninguna"
+      "Ninguna",
+      "No sabe / no tiene información"
      ],
      "opt": [
       "ChatGPT",
       "Claude",
       "Gemini",
-      "Microsoft Copilot",
+      "Microsoft Copilot o Microsoft 365 Copilot",
       "Perplexity",
       "NotebookLM",
-      "Herramienta jurídica con IA",
+      "Herramienta jurídica especializada con funciones de IA",
+      "Funciones de IA integradas en otros programas de la firma",
+      "Otra. ¿Cuál?",
       "Ninguna",
-      "Otra. ¿Cuál?"
-     ]
+      "No sabe / no tiene información"
+     ],
+     "help": "Considere el uso actual o durante los últimos 12 meses. Marque todas las opciones que correspondan."
     },
     {
      "id": "D6.2",
-     "label": "Tipo de cuenta con que se usan",
-     "type": "multi",
-     "excl": [
-      "No aplica"
-     ],
+     "label": "Para cada herramienta seleccionada en D6.1, ¿qué tipo de cuenta se utiliza para actividades de la firma?",
+     "type": "matrix",
      "opt": [
       "Personal gratuita",
       "Personal de pago",
       "Corporativa centralizada",
-      "No aplica"
-     ]
+      "Varias modalidades",
+      "No aplica",
+      "No sabe / no tiene información"
+     ],
+     "help": "Una respuesta por fila. «Corporativa centralizada» significa que la firma administra las cuentas, los accesos o la configuración.",
+     "rowsFrom": "D6.1",
+     "when": {
+      "q": "D6.1",
+      "notIn": [
+       "Ninguna",
+       "No sabe / no tiene información"
+      ]
+     }
     },
     {
      "id": "D6.3",
-     "label": "Usos actuales o exploratorios",
+     "label": "¿Para qué actividades ha utilizado la firma esas herramientas de IA?",
      "type": "multi",
      "excl": [
-      "Ninguno"
+      "No se han utilizado para actividades de la firma",
+      "No sabe / no tiene información"
      ],
      "opt": [
       "Redacción de borradores",
-      "Investigación jurídica",
+      "Investigación jurídica, con verificación posterior de las fuentes",
       "Resumen de expedientes o documentos",
       "Apoyo en cálculos o revisión de hojas de cálculo",
-      "Comunicaciones con partes o despachos",
-      "Organización de información",
-      "Ninguno"
-     ]
+      "Organización o clasificación de información",
+      "Elaboración de borradores de comunicaciones para revisión humana",
+      "Otro uso. ¿Cuál?",
+      "No se han utilizado para actividades de la firma",
+      "No sabe / no tiene información"
+     ],
+     "help": "Marque todas las opciones que correspondan. Considere únicamente actividades que ya se hayan realizado; las posibles aplicaciones futuras se preguntan en D6.10."
     },
     {
      "id": "D6.4",
-     "label": "Herramienta que la firma quisiera implementar",
+     "label": "¿Qué herramienta o tipo de solución de IA considera implementar la firma?",
      "type": "multi",
      "req": true,
      "excl": [
-      "Sin definir, requiere asesoría"
+      "No se ha definido; la firma requiere asesoría para evaluarla",
+      "No tiene preferencia actualmente"
      ],
      "opt": [
-      "ChatGPT Business / Enterprise",
-      "Claude for Work",
-      "Gemini for Workspace",
-      "Microsoft Copilot",
-      "Herramienta jurídica especializada",
-      "Sin definir, requiere asesoría",
-      "Otra. ¿Cuál?"
+      "ChatGPT Business o Enterprise",
+      "Claude para uso empresarial",
+      "Gemini para Google Workspace",
+      "Microsoft 365 Copilot",
+      "Herramienta jurídica especializada con IA",
+      "Solución propia o integrada a los sistemas de la firma",
+      "Otra. ¿Cuál?",
+      "No se ha definido; la firma requiere asesoría para evaluarla",
+      "No tiene preferencia actualmente"
      ]
     },
     {
      "id": "D6.5",
-     "label": "Motivo principal de esa preferencia",
+     "label": "¿Cuál es el motivo principal de esa preferencia?",
      "type": "chips",
      "opt": [
-      "Ya la conocen o usan",
-      "Integración con el ecosistema actual",
+      "La firma o sus integrantes ya conocen o utilizan esa herramienta",
+      "Se integra con el ecosistema tecnológico actual",
+      "Sus funciones se ajustan a las tareas prioritarias de la firma",
       "Costo",
       "Seguridad y confidencialidad",
-      "Recomendación externa",
-      "Sin preferencia definida"
+      "Administración centralizada de cuentas y accesos",
+      "Recomendación de un asesor, proveedor u otra persona",
+      "No hay una preferencia definida",
+      "Otro motivo. ¿Cuál?"
      ]
     },
     {
      "id": "D6.6",
-     "label": "Nivel de conocimiento previo en IA por rol",
+     "label": "¿Cuál es el nivel de conocimiento previo en IA de las personas que desempeñan estos roles en la firma?",
      "type": "matrix",
      "rows": [
       "Abogados",
@@ -1041,21 +1227,27 @@
       "Básico",
       "Intermedio",
       "Avanzado",
-      "No aplica"
-     ]
+      "No hay personas con ese rol",
+      "No sabe / no puede estimar"
+     ],
+     "help": "Marque una respuesta por fila. «Básico» corresponde a un conocimiento inicial; «intermedio», al uso de IA para tareas habituales con revisión de resultados; «avanzado», a la capacidad de configurar o evaluar flujos de trabajo con IA."
     },
     {
      "id": "D6.7",
-     "label": "Formación previa recibida en IA",
+     "label": "¿Qué formación sobre IA han recibido la firma o sus integrantes?",
      "type": "multi",
      "excl": [
-      "Ninguna"
+      "Ninguna",
+      "No sabe / no tiene información"
      ],
      "opt": [
-      "Diplomado en curso o terminado",
+      "Diplomado o curso terminado",
       "Cursos cortos o talleres",
-      "Autoaprendizaje (tutoriales, lecturas)",
-      "Ninguna"
+      "Capacitaciones internas o impartidas por proveedores",
+      "Autoaprendizaje mediante tutoriales, lecturas u otros recursos",
+      "Otra. ¿Cuál?",
+      "Ninguna",
+      "No sabe / no tiene información"
      ]
     },
     {
@@ -1081,18 +1273,19 @@
      "help": "Considere que los resultados deben ser revisados y validados por el profesional responsable antes de utilizarlos o presentarlos.",
      "type": "multi",
      "excl": [
-      "No consideraría utilizar IA como apoyo en ninguna de estas tareas",
+      "No consideraría utilizar IA como apoyo en estas tareas",
       "No sabe / no tiene información"
      ],
      "opt": [
       "Buscar y resumir normas, jurisprudencia y acuerdos, identificando las fuentes para su verificación",
-      "Elaborar borradores iniciales de documentos a partir de los modelos de la firma",
+      "Elaborar borradores iniciales de documentos a partir de modelos de la firma",
       "Resumir expedientes o conjuntos de documentos",
       "Extraer, clasificar y organizar información de escrituras, certificados y extractos",
-      "Identificar diferencias, omisiones o inconsistencias entre inventario, avalúo y adjudicación",
-      "Verificar cálculos y detectar errores aritméticos",
+      "Identificar diferencias, omisiones o inconsistencias entre inventarios, avalúos y adjudicaciones",
+      "Apoyar la verificación de cálculos y la detección de errores aritméticos",
+      "Preparar borradores de comunicaciones para revisión humana",
       "Otra tarea. ¿Cuál?",
-      "No consideraría utilizar IA como apoyo en ninguna de estas tareas",
+      "No consideraría utilizar IA como apoyo en estas tareas",
       "No sabe / no tiene información"
      ]
     },
@@ -1102,7 +1295,7 @@
      "when": {
       "q": "D1.1",
       "any": [
-       "Partición (sucesiones, liquidación de sociedad conyugal o patrimonial de hecho)"
+       "Partición (sucesiones, liquidación de sociedad conyugal o de sociedad patrimonial entre compañeros permanentes)"
       ]
      },
      "label": "Partición. Tareas específicas en las que consideraría utilizar IA como apoyo",
@@ -1136,48 +1329,62 @@
     },
     {
      "id": "D6.11",
-     "label": "Tareas que la firma no delegaría a un asistente de IA, ni siquiera con revisión humana",
+     "label": "¿Qué actividades considera que deben permanecer bajo el control y la responsabilidad directa del profesional, sin delegarlas a un asistente de IA, aunque exista revisión humana?",
      "type": "multi",
      "excl": [
       "Ninguna en particular"
      ],
      "opt": [
-      "Decisión sobre la adjudicación final",
-      "Firma y presentación de los trabajos ante el despacho",
-      "Avalúo de bienes",
-      "Relación con las partes y el despacho",
-      "Manejo de información reservada",
+      "Decisión final sobre la adjudicación o distribución de bienes y derechos",
+      "Validación y aprobación del trabajo final de partición, liquidación o adjudicación",
+      "Firma y presentación de los trabajos ante el despacho o autoridad",
+      "Elaboración y responsabilidad por el avalúo final de bienes",
+      "Comunicación directa con las partes o el despacho cuando se requiera criterio profesional",
+      "Ingreso de información reservada o confidencial en herramientas externas no aprobadas",
+      "Otra actividad. ¿Cuál?",
       "Ninguna en particular"
      ]
     },
     {
      "id": "D6.12",
-     "label": "Resistencias o preocupaciones del equipo",
+     "label": "¿Qué preocupaciones o dificultades identifica el equipo frente al uso de herramientas de IA?",
      "type": "multi",
      "excl": [
-      "Ninguna identificada"
+      "Ninguna identificada",
+      "No sabe / no tiene información"
      ],
      "opt": [
-      "Desconfianza en la precisión, en especial en cálculos",
-      "Temor al reemplazo",
-      "Carga de aprendizaje",
+      "Dudas sobre la precisión de los resultados, especialmente en cálculos",
+      "Dificultad para verificar las fuentes o el razonamiento de las respuestas",
+      "Riesgo de errores, omisiones o resultados sesgados",
+      "Incertidumbre sobre la responsabilidad profesional por errores",
+      "Confidencialidad y seguridad de la información",
       "Dudas éticas o deontológicas",
-      "Confidencialidad",
-      "Ninguna identificada"
+      "Temor al reemplazo de funciones o puestos de trabajo",
+      "Carga de aprendizaje o falta de tiempo para capacitarse",
+      "Costo o dependencia de un proveedor",
+      "Otra preocupación. ¿Cuál?",
+      "Ninguna identificada",
+      "No sabe / no tiene información"
      ]
     },
     {
      "id": "D6.13",
-     "label": "Horas semanales reales disponibles por persona para capacitación",
+     "label": "En una semana habitual, ¿cuántas horas podría dedicar cada persona, en promedio, a capacitarse en el uso de IA?",
      "type": "chips",
      "opt": [
-      "Menos de 1",
-      "1–2",
-      "3–4",
-      "Más de 4"
-     ]
+      "Ninguna",
+      "Menos de 1 hora",
+      "De 1 a 2 horas",
+      "De 3 a 4 horas",
+      "Más de 4 horas",
+      "La disponibilidad varía ampliamente entre integrantes",
+      "No sabe / no puede estimar"
+     ],
+     "help": "Si la disponibilidad varía mucho entre integrantes, indíquelo en las observaciones del módulo."
     }
-   ]
+   ],
+   "obs": "¿Hay algún aspecto sobre las herramientas, el conocimiento del equipo, las actividades que deben permanecer bajo control profesional, las preocupaciones o el tiempo disponible para capacitación que no haya quedado registrado? No incluya nombres, datos personales ni información confidencial de procesos o terceros."
   },
   {
    "code": "D7",
@@ -1187,57 +1394,167 @@
    "q": [
     {
      "id": "D7.1",
-     "label": "Instrumentos de gobernanza existentes",
+     "label": "Instrumentos y controles de gobernanza existentes. Indique el estado de cada uno en la firma",
      "type": "matrix",
      "rows": [
-      "Política de uso de IA",
-      "Código de ética o conducta",
-      "Responsable designado para IA",
-      "Procedimiento de incidentes",
-      "Registro de documentos elaborados con apoyo de IA y de quien validó el resultado"
+      "Política o lineamiento sobre uso de herramientas de IA",
+      "Criterios sobre herramientas autorizadas y usos permitidos",
+      "Reglas de confidencialidad y protección de información al usar IA",
+      "Procedimiento de revisión humana de resultados generados con IA",
+      "Registro de usos relevantes de IA y de la persona que revisó el resultado",
+      "Procedimiento para reportar y gestionar errores o incidentes",
+      "Código de ética o conducta que incluya el uso de IA",
+      "Persona responsable o instancia encargada de orientar el uso de IA"
      ],
      "opt": [
-      "Existe y se aplica",
-      "En borrador o informal",
+      "Existe y se aplica habitualmente",
+      "Existe, pero se aplica parcialmente o requiere actualización",
+      "Está en elaboración o se aplica informalmente",
       "No existe",
-      "No sabe"
-     ]
+      "No sabe / no tiene información"
+     ],
+     "help": "Una respuesta por fila."
     },
     {
      "id": "D7.2",
-     "label": "Control antes de presentar un trabajo de partición, liquidación, inventario o adjudicación ante el despacho, la notaría o las partes",
-     "type": "chips",
+     "label": "En los últimos 12 meses, ¿qué revisión se realizó antes de entregar o presentar un trabajo elaborado con apoyo de herramientas digitales o de IA?",
+     "type": "multi",
      "req": true,
      "opt": [
-      "Doble revisión obligatoria (jurídica y de cálculos)",
-      "Revisión del profesional responsable",
-      "Revisión ocasional",
-      "Sin control definido"
+      "Revisión jurídica o normativa por el profesional responsable",
+      "Verificación independiente de cálculos, operaciones o fórmulas",
+      "Contraste de datos, documentos e información de soporte",
+      "Revisión de citas, fuentes, referencias y vigencia normativa",
+      "Revisión de integridad, coherencia y consistencia del documento",
+      "Doble revisión por otra persona del equipo",
+      "Revisión ocasional o solo en encargos seleccionados",
+      "No existe un procedimiento definido de revisión",
+      "No se han utilizado herramientas digitales o de IA para elaborar trabajos",
+      "No sabe / no tiene información"
+     ],
+     "help": "Marque todas las que correspondan.",
+     "excl": [
+      "No existe un procedimiento definido de revisión",
+      "No se han utilizado herramientas digitales o de IA para elaborar trabajos",
+      "No sabe / no tiene información"
      ]
     },
     {
      "id": "D7.3",
-     "label": "Transparencia con el despacho o las partes sobre el uso de IA en la elaboración de los trabajos",
+     "label": "Cuando una herramienta de IA ha tenido una intervención relevante en la elaboración de un trabajo, ¿qué práctica sigue la firma respecto de informar ese uso al despacho, la notaría o las partes?",
      "type": "chips",
      "opt": [
-      "Siempre se informa",
-      "Solo si lo preguntan",
-      "No se informa",
-      "No se ha presentado el caso"
+      "Se informa habitualmente, de acuerdo con las instrucciones aplicables al encargo",
+      "Se informa cuando el despacho, la notaría o las partes lo solicitan",
+      "Se informa solo en determinados tipos de trabajo o encargos",
+      "No se informa habitualmente",
+      "No se ha presentado un caso en el que se haya usado IA de forma relevante",
+      "No sabe / no tiene información"
      ]
     },
     {
      "id": "D7.4",
-     "label": "¿Algún despacho, notaría o parte ha exigido, limitado o prohibido el uso de IA?",
-     "type": "chips",
+     "label": "En los últimos 12 meses, ¿algún despacho, notaría, autoridad o parte ha impartido instrucciones sobre el uso de IA en un encargo de la firma?",
+     "type": "multi",
      "opt": [
-      "Lo ha exigido",
-      "Lo ha limitado o prohibido",
-      "No ha ocurrido"
+      "Ha requerido informar o explicar el uso de IA",
+      "Ha requerido verificar o documentar el uso de IA",
+      "Ha limitado el uso de IA para determinadas tareas o documentos",
+      "Ha prohibido el uso de IA en uno o más encargos",
+      "Ha autorizado expresamente su uso bajo ciertas condiciones",
+      "No ha ocurrido",
+      "No sabe / no tiene información"
+     ],
+     "help": "Marque todas las que correspondan.",
+     "excl": [
+      "No ha ocurrido",
+      "No sabe / no tiene información"
+     ]
+    },
+    {
+     "id": "D7.4b",
+     "when": {
+      "q": "D7.4",
+      "any": [
+       "Ha requerido informar o explicar el uso de IA",
+       "Ha requerido verificar o documentar el uso de IA",
+       "Ha limitado el uso de IA para determinadas tareas o documentos",
+       "Ha prohibido el uso de IA en uno o más encargos",
+       "Ha autorizado expresamente su uso bajo ciertas condiciones"
+      ]
+     },
+     "label": "¿Quién impartió la instrucción?",
+     "type": "multi",
+     "opt": [
+      "Despacho judicial",
+      "Notaría",
+      "Autoridad administrativa",
+      "Parte o cliente",
+      "Otro. ¿Cuál?"
      ]
     },
     {
      "id": "D7.5",
+     "label": "¿La firma ha definido qué herramientas de IA pueden utilizarse para actividades relacionadas con los encargos?",
+     "type": "chips",
+     "opt": [
+      "Sí, existe una lista o criterio formal y actualizado",
+      "Sí, pero se comunica informalmente o está pendiente de actualización",
+      "Cada integrante decide qué herramienta utilizar",
+      "No se han definido herramientas autorizadas",
+      "No aplica: la firma no utiliza herramientas de IA",
+      "No sabe / no tiene información"
+     ]
+    },
+    {
+     "id": "D7.6",
+     "label": "Si se detecta que una herramienta digital o de IA produjo un error, expuso información o generó un resultado inadecuado, ¿qué hace la firma?",
+     "help": "Marque todas las que correspondan.",
+     "type": "multi",
+     "excl": [
+      "No existe un procedimiento definido",
+      "No se han presentado incidentes conocidos",
+      "No sabe / no tiene información"
+     ],
+     "opt": [
+      "Verifica el alcance y corrige el resultado",
+      "Informa al profesional responsable del encargo",
+      "Registra el incidente y las medidas adoptadas",
+      "Evalúa si debe informar al despacho, autoridad o partes",
+      "Suspende el uso de la herramienta mientras se analiza el incidente",
+      "No existe un procedimiento definido",
+      "No se han presentado incidentes conocidos",
+      "No sabe / no tiene información"
+     ]
+    },
+    {
+     "id": "D7.7",
+     "label": "En los últimos 12 meses, ¿se detectaron los siguientes errores o incidentes en relación con herramientas digitales, hojas de cálculo o de IA?",
+     "type": "matrix",
+     "opt": [
+      "Sí, y se corrigió antes de entregar",
+      "Sí, y requirió corregir o aclarar un trabajo ya entregado",
+      "No se ha detectado",
+      "No sabe / no tiene información"
+     ],
+     "help": "Una respuesta por fila.",
+     "rows": [
+      "Errores aritméticos o de cálculo",
+      "Omisiones o inconsistencias en inventarios, avalúos o adjudicaciones",
+      "Citas, normas o referencias inexistentes, incorrectas o desactualizadas",
+      "Uso de versiones desactualizadas de documentos, plantillas o tarifas",
+      "Información inexacta, incompleta o presentada sin soporte suficiente",
+      "Exposición o envío de información a una herramienta o destinatario no previsto"
+     ]
+    },
+    {
+     "id": "D7.8",
+     "label": "Observaciones sobre incidentes o casos relevantes (opcional). Describa brevemente una situación general que ayude a entender los controles o dificultades de la firma",
+     "type": "textarea",
+     "help": "No incluya nombres, datos personales, información de expedientes ni contenido reservado o confidencial."
+    },
+    {
+     "id": "D7.9A",
      "tag": "Auxiliar de la justicia",
      "when": {
       "q": "D1.2",
@@ -1245,7 +1562,7 @@
        "Auxiliar de la justicia designado por el despacho (lista de la Rama Judicial)"
       ]
      },
-     "label": "Como auxiliar de la justicia, ¿en cuáles de estas situaciones ha intervenido la firma durante los últimos tres años?",
+     "label": "Trayectoria como auxiliar de la justicia. ¿En cuáles de estas situaciones ha intervenido la firma durante los últimos tres años?",
      "type": "multi",
      "excl": [
       "Ninguna de las anteriores",
@@ -1262,7 +1579,7 @@
      ]
     },
     {
-     "id": "D7.6",
+     "id": "D7.9B",
      "tag": "Designación por las partes",
      "when": {
       "q": "D1.2",
@@ -1270,7 +1587,7 @@
        "Partidor o liquidador designado por las partes, por notaría o por contrato"
       ]
      },
-     "label": "Como partidor o liquidador designado por las partes o por notaría, ¿en cuáles de estas situaciones ha intervenido la firma durante los últimos tres años?",
+     "label": "Trayectoria como partidor o liquidador designado por las partes o por notaría. ¿En cuáles de estas situaciones ha intervenido la firma durante los últimos tres años?",
      "type": "multi",
      "excl": [
       "Ninguna de las anteriores",
@@ -1284,28 +1601,9 @@
       "Ninguna de las anteriores",
       "No sabe / no tiene información"
      ]
-    },
-    {
-     "id": "D7.7",
-     "label": "Errores previos atribuibles a herramientas digitales o a hojas de cálculo",
-     "type": "multi",
-     "excl": [
-      "Ninguno conocido"
-     ],
-     "opt": [
-      "Errores aritméticos en liquidaciones o adjudicaciones",
-      "Citas normativas o jurisprudenciales inexistentes o desactualizadas",
-      "Fuga o exposición de información",
-      "Uso de versiones desactualizadas de plantillas o tarifas",
-      "Ninguno conocido"
-     ]
-    },
-    {
-     "id": "D7.8",
-     "label": "Si hubo casos relevantes, descríbalos brevemente (opcional)",
-     "type": "textarea"
     }
-   ]
+   ],
+   "obs": "¿Hay algún control, instrucción, riesgo o práctica de la firma que no haya quedado registrado en las preguntas anteriores? No incluya datos personales, información de expedientes ni contenido reservado o confidencial."
   },
   {
    "code": "D9",
@@ -1344,7 +1642,8 @@
       "q": "D1.3",
       "any": [
        "Sucesiones y partición (Código Civil y Código General del Proceso)",
-       "Liquidación de sociedad conyugal o patrimonial de hecho"
+       "Liquidación de sociedad conyugal",
+       "Liquidación de sociedad patrimonial entre compañeros permanentes"
       ]
      },
      "label": "Sucesiones, partición y liquidación de sociedad conyugal o patrimonial. ¿Con qué frecuencia consultó la firma las siguientes fuentes?",
@@ -1454,7 +1753,8 @@
      "when": {
       "q": "D1.3",
       "any": [
-       "Liquidación judicial y reorganización empresarial (Ley 1116 de 2006 y Ley 2437 de 2024)"
+       "Reorganización empresarial (Ley 1116 de 2006 y Ley 2437 de 2024)",
+       "Liquidación judicial empresarial (Ley 1116 de 2006 y Ley 2437 de 2024)"
       ]
      },
      "label": "Liquidación judicial y reorganización empresarial. ¿Con qué frecuencia consultó la firma las siguientes fuentes?",
@@ -1507,9 +1807,9 @@
      "id": "D9.5",
      "tag": "Auxiliares de la justicia",
      "when": {
-      "q": "D1.3",
+      "q": "D1.2",
       "any": [
-       "Régimen de auxiliares de la justicia (designación, posesión, honorarios, deberes)"
+       "Auxiliar de la justicia designado por el despacho (lista de la Rama Judicial)"
       ]
      },
      "label": "Régimen de auxiliares de la justicia. ¿Con qué frecuencia consultó la firma las siguientes fuentes?",
@@ -1533,21 +1833,25 @@
     },
     {
      "id": "D9.6",
-     "label": "Normas y lineamientos relevantes para el uso de IA en la práctica profesional",
+     "label": "Fuentes relacionadas con el uso de IA en la práctica. Indique si identifica y consulta cada fuente cuando resulta pertinente para las actividades de la firma",
      "type": "matrix",
      "rows": [
       "Ley 1581 de 2012, protección de datos personales",
-      "Ley 1273 de 2009, delitos informáticos",
-      "Ley 1123 de 2007, Código Disciplinario del Abogado (secreto profesional y deberes)",
-      "Lineamientos de la SIC sobre tratamiento de datos en sistemas de IA (verificar vigencia)",
-      "Política nacional de IA del Gobierno Nacional (CONPES, verificar vigencia)",
-      "Pronunciamientos de la Corte Constitucional sobre uso de IA en decisiones judiciales (verificar)"
+      "Ley 1273 de 2009, protección penal de la información y los datos",
+      "Ley 1123 de 2007, Código Disciplinario del Abogado, si quien responde ejerce la abogacía",
+      "Circular Externa 002 de 2024 de la Superintendencia de Industria y Comercio, tratamiento de datos personales en sistemas de IA",
+      "Documento CONPES 4144 de 2025, Política Nacional de Inteligencia Artificial",
+      "Sentencia T-323 de 2024 de la Corte Constitucional, criterios sobre uso de IA en despachos judiciales",
+      "Instrucciones del despacho, notaría, autoridad o partes sobre el uso de IA en un encargo"
      ],
      "opt": [
-      "La conoce y la aplica",
-      "La conoce, no la aplica",
-      "No la conoce"
-     ]
+      "La identifica y consulta cuando corresponde",
+      "La conoce, pero no la consulta habitualmente",
+      "No la conoce",
+      "No aplica a los encargos o al rol de quien responde",
+      "No sabe / no tiene información"
+     ],
+     "help": "Una respuesta por fila. Las referencias nominadas se verifican en fuente oficial antes del informe de diagnóstico."
     },
     {
      "id": "D9.7",
@@ -1555,17 +1859,17 @@
      "type": "multi",
      "req": true,
      "excl": [
-      "No existe un método definido",
+      "No existe un método definido para identificar o verificar cambios",
       "No sabe / no tiene información"
      ],
      "opt": [
-      "Consulta periódicamente las fuentes oficiales (SUIN-Juriscol, Diario Oficial, Secretaría del Senado, Rama Judicial)",
-      "Usa alertas, boletines o sistemas de seguimiento y luego confirma el cambio en la fuente oficial",
-      "Consulta bases de datos jurídicas privadas y luego confirma el cambio en la fuente oficial",
-      "Registra la fecha de consulta, la versión revisada y el enlace a la fuente",
-      "Una persona responsable revisa y comunica los cambios al equipo",
-      "La actualización se revisa caso por caso, sin un registro común",
-      "No existe un método definido",
+      "Consulta periódicamente las fuentes oficiales pertinentes (SUIN-Juriscol, Diario Oficial, Secretaría del Senado, Rama Judicial)",
+      "Recibe alertas, boletines o notificaciones y confirma los cambios en la fuente oficial",
+      "Consulta bases de datos jurídicas privadas y confirma la información en la fuente oficial",
+      "Registra la fecha de consulta, la versión revisada y el enlace o identificación de la fuente",
+      "Una persona responsable revisa los cambios y los comunica al equipo",
+      "Cada profesional verifica las fuentes para su encargo, sin un registro común",
+      "No existe un método definido para identificar o verificar cambios",
       "Otro método. ¿Cuál?",
       "No sabe / no tiene información"
      ]
@@ -1587,46 +1891,65 @@
    "q": [
     {
      "id": "D8.1",
-     "label": "¿Qué resultados espera obtener la firma con la implementación de la herramienta?",
-     "help": "Marque hasta tres opciones.",
+     "label": "¿Qué resultados espera obtener la firma durante los primeros 12 meses de implementación de la herramienta?",
+     "help": "Seleccione hasta tres.",
      "type": "multi",
      "max": 3,
      "req": true,
      "opt": [
-      "Liberar tiempo del profesional responsable en partición y liquidación",
-      "Atender un mayor número de encargos con el equipo actual",
-      "Reducir errores de cálculo, omisiones y reprocesos",
-      "Mejorar la calidad y uniformidad de los trabajos presentados",
-      "Cumplir con mayor holgura los términos fijados por los despachos",
-      "Delegar más tareas operativas al equipo de apoyo con control",
+      "Reducir el tiempo que el profesional responsable dedica a tareas operativas de partición o liquidación",
+      "Atender más encargos con el equipo actual",
+      "Reducir errores, omisiones o reprocesos detectados durante la revisión",
+      "Mejorar la calidad, claridad y uniformidad de los trabajos presentados",
+      "Cumplir oportunamente los términos e instrucciones aplicables a los encargos",
+      "Liberar tiempo del equipo para actividades de análisis y revisión profesional",
       "Reducir costos asociados a las tareas apoyadas por la herramienta",
-      "Otro. ¿Cuál?"
+      "Mejorar la organización, consulta o reutilización de documentos y conocimientos de la firma",
+      "Otro resultado. ¿Cuál?",
+      "Aún no se han definido resultados prioritarios"
+     ],
+     "excl": [
+      "Aún no se han definido resultados prioritarios"
      ]
     },
     {
      "id": "D8.2",
      "label": "¿Qué indicadores utilizaría la firma para evaluar los resultados de la implementación?",
-     "help": "Marque hasta tres opciones.",
+     "help": "Seleccione hasta tres.",
      "type": "multi",
      "max": 3,
      "excl": [
       "Aún no se han definido indicadores"
      ],
      "opt": [
-      "Horas de trabajo ahorradas por encargo o por periodo",
+      "Horas de trabajo por encargo o por periodo",
+      "Tiempo promedio entre la asignación y la entrega del trabajo",
       "Número de encargos atendidos por periodo",
-      "Tasa de objeciones aceptadas o de órdenes de corrección",
-      "Errores de cálculo detectados antes de la presentación",
-      "Tiempo entre la designación y la presentación del trabajo",
-      "Cumplimiento de términos judiciales",
-      "Otro. ¿Cuál?",
+      "Porcentaje de trabajos que requieren correcciones o reprocesos después de la revisión interna",
+      "Errores de cálculo detectados durante la revisión, antes de la entrega",
+      "Observaciones o solicitudes de corrección recibidas después de la entrega",
+      "Porcentaje de resultados de la herramienta revisados y validados por una persona responsable",
+      "Número o proporción de integrantes que utilizan la herramienta en las tareas previstas",
+      "Incidentes relacionados con confidencialidad, seguridad o uso inadecuado de información",
+      "Otro indicador. ¿Cuál?",
       "Aún no se han definido indicadores"
      ]
     },
     {
      "id": "D8.2b",
-     "label": "Para cada indicador seleccionado indique, si lo conoce, el valor actual o línea de base, la meta esperada y el periodo de medición",
-     "type": "textarea"
+     "label": "Para cada indicador seleccionado indique, si lo conoce, el valor actual o línea de base, la meta esperada, el periodo o fecha de medición y la fuente del dato",
+     "type": "textarea",
+     "help": "Ejemplo: horas por encargo; línea de base 30 h; meta 20 h; medición trimestral; fuente, registro de tiempos. Si la línea de base no se ha medido o la meta no se ha definido, indíquelo."
+    },
+    {
+     "id": "D8.2c",
+     "label": "Estado de la medición",
+     "type": "multi",
+     "opt": [
+      "La línea de base aún no se ha medido",
+      "La meta aún no se ha definido",
+      "Ambas están definidas"
+     ]
     },
     {
      "id": "D8.3",
@@ -1634,7 +1957,7 @@
      "type": "chips",
      "opt": [
       "Aprobado",
-      "Estimado, pero aún no aprobado",
+      "Estimado, pero pendiente de aprobación",
       "En proceso de definición",
       "No se ha previsto presupuesto",
       "No sabe / no responde"
@@ -1642,28 +1965,44 @@
     },
     {
      "id": "D8.3b",
-     "label": "¿Cuál es el presupuesto anual estimado?",
-     "type": "chips",
+     "label": "Si existe una estimación, indique por separado el presupuesto inicial y el costo recurrente estimado",
+     "type": "matrix",
      "opt": [
       "Menos de $5 millones COP",
-      "Desde $5 millones y menos de $15 millones COP",
-      "Desde $15 millones hasta $40 millones COP",
+      "Desde $5 y menos de $15 millones COP",
+      "Desde $15 hasta $40 millones COP",
       "Más de $40 millones COP",
       "Por definir",
       "No sabe / no responde"
+     ],
+     "help": "Una respuesta por fila.",
+     "rows": [
+      "Implementación inicial",
+      "Operación anual recurrente"
      ]
     },
     {
      "id": "D8.3c",
-     "label": "¿Qué costos incluye el valor reportado?",
+     "label": "¿Qué conceptos incluye el valor estimado?",
      "type": "multi",
      "opt": [
-      "Licencias",
-      "Implementación o configuración",
+      "Licencias o suscripciones",
+      "Implementación, configuración o personalización",
       "Integración con otros sistemas",
-      "Capacitación",
+      "Migración, limpieza o preparación de información",
+      "Capacitación del equipo",
       "Soporte y mantenimiento",
-      "Otro. ¿Cuál?"
+      "Infraestructura, almacenamiento o servicios en la nube",
+      "Seguridad, privacidad o controles de acceso",
+      "Tiempo del personal de la firma destinado a la implementación",
+      "Impuestos u otros cargos",
+      "Otro costo. ¿Cuál?",
+      "No se han definido los costos incluidos",
+      "No sabe / no responde"
+     ],
+     "excl": [
+      "No se han definido los costos incluidos",
+      "No sabe / no responde"
      ]
     },
     {
@@ -1672,61 +2011,138 @@
      "type": "chips",
      "opt": [
       "1",
-      "2 a 3",
-      "4 a 5",
-      "Más de 5",
-      "Por definir"
+      "2 o 3",
+      "4 o 5",
+      "6 a 10",
+      "Más de 10",
+      "Por definir",
+      "No sabe / no responde"
      ]
     },
     {
      "id": "D8.4b",
-     "label": "¿La estimación corresponde a usuarios con acceso individual o a accesos simultáneos?",
-     "type": "chips",
+     "label": "¿Qué modalidad de acceso se prevé?",
+     "type": "multi",
      "opt": [
-      "Usuarios individuales",
-      "Accesos simultáneos",
-      "Aún no se ha definido"
+      "Una cuenta individual para cada persona usuaria",
+      "Accesos compartidos o concurrentes, de acuerdo con las condiciones de la herramienta",
+      "Se requieren cuentas individuales y también se necesita estimar cuántas personas podrían usar la herramienta simultáneamente",
+      "Aún no se ha definido la modalidad de acceso",
+      "No sabe / no responde"
+     ],
+     "help": "Marque todas las que correspondan.",
+     "excl": [
+      "Aún no se ha definido la modalidad de acceso",
+      "No sabe / no responde"
+     ]
+    },
+    {
+     "id": "D8.4c",
+     "label": "Si se conoce, indique los números estimados",
+     "type": "numbers",
+     "rows": [
+      "Cuentas individuales",
+      "Máximo de usuarios simultáneos"
      ]
     },
     {
      "id": "D8.5",
-     "label": "¿En cuánto tiempo espera iniciar la implementación, contado desde la aprobación de la propuesta?",
+     "label": "Desde la aprobación interna del proyecto y la disponibilidad del presupuesto, ¿cuándo espera la firma iniciar la implementación?",
      "type": "chips",
      "opt": [
       "Menos de 1 mes",
       "De 1 a 3 meses",
-      "De 3 a 6 meses",
+      "Más de 3 y hasta 6 meses",
       "Más de 6 meses",
-      "Por definir"
+      "Depende de contratación, aprobación externa o disponibilidad del proveedor",
+      "Por definir",
+      "No sabe / no responde"
      ]
     },
     {
      "id": "D8.5b",
-     "label": "¿Qué plazo estima para completar el despliegue inicial?",
-     "type": "text"
+     "label": "¿En cuánto tiempo espera completar el despliegue inicial, contado desde el inicio efectivo del proyecto? Indique, si puede, los hitos y sus plazos",
+     "type": "textarea",
+     "help": "Puede incluir configuración, prueba piloto, validación, capacitación y disponibilidad para el uso previsto."
     },
     {
      "id": "D8.6",
-     "label": "Patrocinador interno. ¿Qué persona o cargo respaldaría las decisiones sobre la implementación? (nombre si está definido, y cargo)",
+     "label": "Patrocinio interno. ¿Qué cargo o rol respaldará las decisiones sobre la implementación? El nombre es opcional",
      "type": "text",
      "help": "Si aún no se ha definido, escriba «Aún no se ha definido»."
     },
     {
      "id": "D8.7",
-     "label": "Administrador previsto. ¿Qué persona o cargo coordinaría la administración operativa de la herramienta (usuarios, permisos, soporte interno)? (nombre si está definido, y cargo)",
-     "type": "text",
-     "help": "Si aún no se ha definido, escriba «Aún no se ha definido»."
+     "label": "¿Qué cargo o rol coordinaría la administración operativa de la herramienta (gestión de usuarios y permisos, coordinación del soporte interno y seguimiento de incidencias)?",
+     "type": "chips",
+     "opt": [
+      "Dirección o gerencia",
+      "Profesional responsable de los encargos",
+      "Personal administrativo o de apoyo",
+      "Responsable de tecnología o sistemas",
+      "Proveedor externo",
+      "Responsabilidad compartida entre varios roles",
+      "Otro. ¿Cuál?",
+      "Aún no se ha definido",
+      "No sabe / no tiene información"
+     ]
+    },
+    {
+     "id": "D8.7b",
+     "label": "Cargo o rol previsto y, si está definido y se considera necesario, nombre de la persona",
+     "type": "text"
+    },
+    {
+     "id": "D8.7c",
+     "label": "¿Se prevé una persona de respaldo para la administración?",
+     "type": "chips",
+     "opt": [
+      "Sí",
+      "No",
+      "Por definir"
+     ]
     },
     {
      "id": "D8.8",
-     "label": "¿Cuáles son los principales problemas que la dirección quiere resolver primero mediante esta implementación? Describa hasta tres e indique, para cada uno, la tarea o proceso afectado y su impacto",
+     "label": "¿Cuáles son los principales problemas que la dirección espera atender al evaluar o implementar esta herramienta? Indique hasta tres, en orden de prioridad",
      "type": "textarea",
-     "req": true
+     "req": true,
+     "help": "Para cada problema indique: tarea o proceso afectado; qué ocurre actualmente; impacto en tiempo, calidad, costos, cumplimiento u otro aspecto; resultado esperado."
+    },
+    {
+     "id": "D8.8b",
+     "label": "Clasificación del impacto de los problemas descritos",
+     "help": "Marque todas las que correspondan.",
+     "type": "multi",
+     "opt": [
+      "Demoras o acumulación de trabajo",
+      "Errores, omisiones o reprocesos",
+      "Dificultad para atender el volumen de encargos",
+      "Falta de uniformidad entre los trabajos",
+      "Dificultad para localizar o reutilizar información",
+      "Costos operativos",
+      "Dificultad para cumplir términos o instrucciones",
+      "Otro. ¿Cuál?"
+     ]
     },
     {
      "id": "D8.9",
-     "label": "Comentarios adicionales. ¿Hay alguna expectativa, condición o recurso que no se haya abordado y que deba tenerse en cuenta?",
-     "type": "textarea"
+     "label": "¿Hay alguna expectativa, condición, restricción o recurso necesario para la implementación que no se haya abordado en las preguntas anteriores?",
+     "type": "multi",
+     "help": "Marque todas las que correspondan y detalle en las observaciones del módulo si corresponde.",
+     "excl": [
+      "No hay comentarios adicionales"
+     ],
+     "opt": [
+      "Disponibilidad de tiempo del equipo",
+      "Capacitación o acompañamiento",
+      "Compatibilidad con herramientas existentes",
+      "Seguridad, privacidad o control de acceso",
+      "Presupuesto o costos recurrentes",
+      "Aprobación de la dirección o de terceros",
+      "Otro. ¿Cuál?",
+      "No hay comentarios adicionales"
+     ]
     }
    ]
   }

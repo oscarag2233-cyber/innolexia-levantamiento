@@ -7,7 +7,7 @@ Instrumentos de levantamiento de información para la fase de diagnóstico y dis
 | Ruta | Cliente | Versión |
 |---|---|---|
 | `nino-fonseca/index.html` | Firma de contratación estatal – Cristian Camilo Niño Fonseca | 5.0 (30-oct-2026) |
-| `tamayo/index.html` | Firma de peritos partidores y liquidadores – José Óscar Tamayo Rivera | 1.1 (30-oct-2026) |
+| `tamayo/index.html` | Firma de peritos partidores y liquidadores – José Óscar Tamayo Rivera | 1.2 (3-nov-2026) · 119 preguntas · 334 columnas (`fuentes/encabezados-matriz-tamayo.csv`) |
 
 ## Cómo funciona el instrumento
 
@@ -27,4 +27,9 @@ Cada instrumento tiene su propio despliegue de Apps Script (código `fuentes/rec
 
 ## Fuente del cuestionario
 
-`fuentes/preguntas.json` (contratación estatal) y `fuentes/preguntas_tamayo.json` (peritos partidores y liquidadores, con bloque `meta` y condicionales `when` sobre D1.1, D1.2 y D1.3) contienen los diez módulos con enunciados, ayudas, tipos (`text`, `email`, `textarea`, `chips`, `multi`, `rank`, `matrix`, `numbers`), opciones, filas, perfil (`C`/`P`), opciones excluyentes (`excl`), tope de selección (`max`), dependencias (`rowsFrom`) y condicionales (`showIf`). El HTML se genera a partir de este archivo; cualquier cambio al cuestionario debe hacerse allí y regenerar la página para que las columnas de la matriz sigan coincidiendo.
+`fuentes/preguntas.json` (contratación estatal) y `fuentes/preguntas_tamayo.json` (peritos partidores y liquidadores, con bloque `meta` y condicionales `when` sobre D1.1, D1.2, D1.3, D1.6 (práctica pericial), D2.5 (método de avalúo), D3.2, D6.1 y D7.4) contienen los diez módulos con enunciados, ayudas, tipos (`text`, `email`, `textarea`, `chips`, `multi`, `rank`, `matrix`, `numbers`), opciones, filas, perfil (`C`/`P`), opciones excluyentes (`excl`), tope de selección (`max`), dependencias (`rowsFrom`) y condicionales (`showIf`). El HTML se genera a partir de este archivo; cualquier cambio al cuestionario debe hacerse allí y regenerar la página para que las columnas de la matriz sigan coincidiendo.
+
+
+## Cambios v1.2 del instrumento Tamayo (3 de noviembre de 2026)
+
+Síntesis de las sugerencias del revisor externo: opciones y escalas reformuladas en D1 a D9 (rangos en lugar de categorías subjetivas, columnas «No aplica / No sabe», terminología «sociedad patrimonial entre compañeros permanentes»); D1.3 sin el régimen de auxiliares (D9.5 se condiciona ahora a D1.2); preguntas nuevas D1.2b, D2.4b, D2.5b, D2.10 (práctica pericial, condicionada a D1.6), D3.6b, D4.5a, D7.4b, D7.5, D7.6, D8.2c, D8.4c, D8.7b, D8.7c y D8.8b; retiradas D1.9, D3.1b y D5.2b; D7.7 convertida en matriz; antiguas D7.5/D7.6 renumeradas como D7.9A/D7.9B. Las referencias nominadas en D9.6 (Circular Externa 002 de 2024 de la SIC, CONPES 4144 de 2025, Sentencia T-323 de 2024) deben verificarse en fuente oficial antes del informe. `fuentes/build.py` es el generador.
