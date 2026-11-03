@@ -143,6 +143,7 @@ table.matrix tr:hover td{background:#F8FBFE}
 .btn{font-family:var(--display);font-weight:600;font-size:.95rem;border:0;padding:12px 20px;border-radius:12px;cursor:pointer;background:var(--navy);color:#fff;display:inline-flex;align-items:center;gap:8px}
 .btn.secondary{background:var(--ice);color:var(--navy)}
 .btn.cyan{background:var(--cyan);color:#062338}
+a.btn{text-decoration:none}
 .btn:disabled{opacity:.5;cursor:not-allowed}
 .final{display:none;margin-top:18px}
 .final .card-body{padding-top:16px}
@@ -366,8 +367,8 @@ function renderEnd(ph){
     <div class="field" style="border-top:0;padding-top:0" data-id="${obsKey}"><span class="main">Observaciones generales de la ${esc(PHASES[ph].name.split(" · ")[0])}. Registre cualquier aspecto que haya quedado por fuera y deba cubrirse en el diagnóstico.</span>
       <textarea id="f_${obsKey}" name="${obsKey}">${esc(data[obsKey]||"")}</textarea></div>
     <div class="actions" style="justify-content:flex-start;margin-top:18px">`;
-  if(ph===1) h+=`<button type="button" class="btn cyan" id="go2">Continuar a la Fase 2 →</button><button type="button" class="btn secondary" id="send1">Enviar avance de la Fase 1</button><button type="button" class="btn secondary" id="xlsx">Descargar copia en Excel</button>`;
-  else h+=`<button type="button" class="btn cyan" id="send">Enviar a la matriz</button><button type="button" class="btn secondary" id="xlsx">Descargar copia en Excel</button><button type="button" class="btn secondary" id="copy">Copiar respuestas</button><button type="button" class="btn secondary" id="back1">← Revisar la Fase 1</button>`;
+  if(ph===1) h+=`<button type="button" class="btn cyan" id="go2">Continuar a la Fase 2 →</button><button type="button" class="btn secondary" id="send1">Enviar avance de la Fase 1</button><button type="button" class="btn secondary" id="xlsx">Descargar copia en Excel</button>${ENDPOINT?`<a class="btn secondary" id="ping" href="${ENDPOINT}" target="_blank" rel="noopener">Probar conexión con la matriz</a>`:""}`;
+  else h+=`<button type="button" class="btn cyan" id="send">Enviar a la matriz</button><button type="button" class="btn secondary" id="xlsx">Descargar copia en Excel</button><button type="button" class="btn secondary" id="copy">Copiar respuestas</button><button type="button" class="btn secondary" id="back1">← Revisar la Fase 1</button>${ENDPOINT?`<a class="btn secondary" id="ping" href="${ENDPOINT}" target="_blank" rel="noopener">Probar conexión con la matriz</a>`:""}`;
   h+=`</div><div class="status" id="status" role="status"></div></div>`;
   const f=$("#final"); f.innerHTML=h; f.style.display="block"; panel.style.display="none"; $("#form .actions").style.display="none";
   f.querySelector("textarea").addEventListener("input",e=>{data[obsKey]=e.target.value;save();});
