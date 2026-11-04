@@ -209,7 +209,8 @@ footer b{color:var(--navy);font-family:var(--display)}
 
 <footer>
   <b>InnoLexIA</b> · Oscar Gutiérrez Saavedra – Consultor de IA y LegalTech · Pereira, Colombia<br>
-  Instrumento de uso exclusivo para la consultoría de implementación de IA · Versión 1.2 · noviembre de 2026
+  Instrumento de uso exclusivo para la consultoría de implementación de IA · Versión 1.2 · noviembre de 2026<br>
+  <a href="#" id="resetAll" style="color:inherit;opacity:.75;font-size:.85em">Reiniciar instrumento (borra las respuestas guardadas en este navegador)</a>
 </footer>
 
 <script>
@@ -232,6 +233,8 @@ const KEY = "innolexia_levantamiento_tamayo_v2";
 const BRANCH_COLS = [{"id": "D1.1", "label": "Procesos que atiende (según D1.1)"}, {"id": "D1.2", "label": "Calidad de actuación (según D1.2)"}, {"id": "D1.3", "label": "Regímenes marcados (según D1.3)"}];
 let idx = 0, data = {}, view = "module";
 try { data = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) { data = {}; }
+function resetAll(){ if(!confirm("¿Borrar todas las respuestas guardadas en este navegador y comenzar de nuevo? Esta acción no afecta lo ya enviado a la matriz.")) return; try{localStorage.removeItem(KEY);}catch(e){} location.replace(location.pathname+"?v="+Date.now()); }
+if(new URLSearchParams(location.search).get("reset")==="1"){ try{localStorage.removeItem(KEY);}catch(e){} data={}; history.replaceState(null,"",location.pathname); }
 const $ = s => document.querySelector(s);
 (function applyConfig(){
   const tags=[]; if(CONFIG.firma) tags.push("Firma: "+CONFIG.firma); if(CONFIG.abogado) tags.push(CONFIG.abogado); if(CONFIG.encuentro) tags.push(CONFIG.encuentro);
@@ -241,6 +244,7 @@ const $ = s => document.querySelector(s);
   if(CONFIG.firma) document.title="Levantamiento IA – "+CONFIG.firma;
 })();
 const steps=$("#steps"), panel=$("#panel"), bar=$("#bar");
+$("#resetAll").addEventListener("click",e=>{e.preventDefault();resetAll();});
 const esc = s => String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const QBY = {}; MODULOS.forEach(m=>m.q.forEach(q=>QBY[q.id]=q));
 const OTRO = /^Otr[oa]s?\b/; const OTRO_ROW="Otro (indicado en la pregunta anterior)";

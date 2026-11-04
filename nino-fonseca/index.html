@@ -209,7 +209,8 @@ footer b{color:var(--navy);font-family:var(--display)}
 
 <footer>
   <b>InnoLexIA</b> · Oscar Gutiérrez Saavedra – Consultor de IA y LegalTech · Pereira, Colombia<br>
-  Instrumento de uso exclusivo para la consultoría de implementación de IA · Versión 5.0 · octubre de 2026
+  Instrumento de uso exclusivo para la consultoría de implementación de IA · Versión 5.0 · octubre de 2026<br>
+  <a href="#" id="resetAll" style="color:inherit;opacity:.75;font-size:.85em">Reiniciar instrumento (borra las respuestas guardadas en este navegador)</a>
 </footer>
 
 <script>
@@ -232,6 +233,8 @@ const KEY = "innolexia_levantamiento_v5";
 const BRANCH_COLS = [{"id": "__PROFILE__", "label": "Perfil (según D1.1)"}];
 let idx = 0, data = {}, view = "module";
 try { data = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) { data = {}; }
+function resetAll(){ if(!confirm("¿Borrar todas las respuestas guardadas en este navegador y comenzar de nuevo? Esta acción no afecta lo ya enviado a la matriz.")) return; try{localStorage.removeItem(KEY);}catch(e){} location.replace(location.pathname+"?v="+Date.now()); }
+if(new URLSearchParams(location.search).get("reset")==="1"){ try{localStorage.removeItem(KEY);}catch(e){} data={}; history.replaceState(null,"",location.pathname); }
 const $ = s => document.querySelector(s);
 (function applyConfig(){
   const tags=[]; if(CONFIG.firma) tags.push("Firma: "+CONFIG.firma); if(CONFIG.abogado) tags.push(CONFIG.abogado); if(CONFIG.encuentro) tags.push(CONFIG.encuentro);
@@ -241,9 +244,10 @@ const $ = s => document.querySelector(s);
   if(CONFIG.firma) document.title="Levantamiento IA – "+CONFIG.firma;
 })();
 const steps=$("#steps"), panel=$("#panel"), bar=$("#bar");
+$("#resetAll").addEventListener("click",e=>{e.preventDefault();resetAll();});
 const esc = s => String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const QBY = {}; MODULOS.forEach(m=>m.q.forEach(q=>QBY[q.id]=q));
-const OTRO = /^Otr[oa]s?\b/;
+const OTRO = /^Otr[oa]s?\b/; const OTRO_ROW="Otro tipo de documento indicado";
 const hasOtro = q => ["chips","multi","rank"].includes(q.type) && (q.opt||[]).some(o=>OTRO.test(o));
 const otroSel = q => {const v=data[q.id]; return Array.isArray(v)?v.some(o=>OTRO.test(o)):(typeof v==="string"&&OTRO.test(v));};
 
@@ -269,7 +273,7 @@ function visible(q){
   return true;
 }
 function rowsOf(q){
-  if(q.rowsFrom){const sel=data[q.rowsFrom]; return Array.isArray(sel)?sel.map(o=>OTRO.test(o)?"Otro tipo de documento indicado":o):[];}
+  if(q.rowsFrom){const sel=data[q.rowsFrom]; return Array.isArray(sel)?sel.map(o=>OTRO.test(o)?OTRO_ROW:o):[];}
   return q.rows||[];
 }
 const visQ = m => m.q.filter(visible);
@@ -424,7 +428,7 @@ function payload(fase){
   MODULOS.forEach(m=>m.q.forEach(q=>{const v=data[q.id]; const vis=visible(q);
     if(q.type==="matrix"||q.type==="numbers"){
       const obj=(v&&typeof v==="object")?v:{};
-      const allRows=q.rowsFrom?QBY[q.rowsFrom].opt.map(o=>OTRO.test(o)?"Otro tipo de documento indicado":o):q.rows;
+      const allRows=q.rowsFrom?QBY[q.rowsFrom].opt.map(o=>OTRO.test(o)?OTRO_ROW:o):q.rows;
       allRows.forEach(r=>out[`${q.id} ${q.label} – ${r}`]=vis?(obj[r]??""):"");
     } else {
       let val="";

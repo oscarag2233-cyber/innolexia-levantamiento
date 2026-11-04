@@ -278,7 +278,8 @@ footer b{color:var(--navy);font-family:var(--display)}
 
 <footer>
   <b>InnoLexIA</b> · Oscar Gutiérrez Saavedra – Consultor de IA y LegalTech · Pereira, Colombia<br>
-  Instrumento de uso exclusivo para la consultoría de implementación de IA · Versión __VERSION__
+  Instrumento de uso exclusivo para la consultoría de implementación de IA · Versión __VERSION__<br>
+  <a href="#" id="resetAll" style="color:inherit;opacity:.75;font-size:.85em">Reiniciar instrumento (borra las respuestas guardadas en este navegador)</a>
 </footer>
 
 <script>
@@ -301,6 +302,8 @@ const KEY = "__KEY__";
 const BRANCH_COLS = __BRANCH_COLS__;
 let idx = 0, data = {}, view = "module";
 try { data = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) { data = {}; }
+function resetAll(){ if(!confirm("¿Borrar todas las respuestas guardadas en este navegador y comenzar de nuevo? Esta acción no afecta lo ya enviado a la matriz.")) return; try{localStorage.removeItem(KEY);}catch(e){} location.replace(location.pathname+"?v="+Date.now()); }
+if(new URLSearchParams(location.search).get("reset")==="1"){ try{localStorage.removeItem(KEY);}catch(e){} data={}; history.replaceState(null,"",location.pathname); }
 const $ = s => document.querySelector(s);
 (function applyConfig(){
   const tags=[]; if(CONFIG.firma) tags.push("Firma: "+CONFIG.firma); if(CONFIG.abogado) tags.push(CONFIG.abogado); if(CONFIG.encuentro) tags.push(CONFIG.encuentro);
@@ -310,6 +313,7 @@ const $ = s => document.querySelector(s);
   if(CONFIG.firma) document.title="Levantamiento IA – "+CONFIG.firma;
 })();
 const steps=$("#steps"), panel=$("#panel"), bar=$("#bar");
+$("#resetAll").addEventListener("click",e=>{e.preventDefault();resetAll();});
 const esc = s => String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const QBY = {}; MODULOS.forEach(m=>m.q.forEach(q=>QBY[q.id]=q));
 const OTRO = /^Otr[oa]s?\b/; const OTRO_ROW=__OTRO_ROW__;
